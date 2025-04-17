@@ -18,24 +18,7 @@ interface FormOneState{
 export const RegisterFormOne:React.FC = () => {
 
   const registerState =useSelector((state: RootState) => state.register);
-  const dispatch:AppDispatch = useDispatch();
 
-    const [buttonActive, setButtonActive] = useState<boolean>(false);
-    const nextPage = () =>{
-      dispatch(updateRegister({
-        name: "error",
-        value: false
-      }));
-      dispatch(incrementStep());
-    }
-
-    useEffect(() => {
-      if(registerState.dobValid && registerState.email && registerState.firstName && registerState.lastName){
-        setButtonActive(true);
-      }else{
-        setButtonActive(false);
-      }
-    }, [registerState])
 
   return (
     <div className='reg-step-one-container'>
@@ -51,13 +34,6 @@ export const RegisterFormOne:React.FC = () => {
         </div>
         <RegisterDateInput date ={registerState.dob}/>
       </div>
-      <StyledNextButton
-        disabled={!buttonActive}
-        color={"black"}
-        active={buttonActive}
-        onClick={nextPage}>
-        Next
-      </StyledNextButton>
     </div>
   )
 }

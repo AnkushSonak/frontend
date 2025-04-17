@@ -11,20 +11,6 @@ import './RegisterFormThree.css'
 export const RegisterFormThree: React.FC = () => {
 
     const state = useSelector((state:RootState) => state.register);
-    const dispatch: AppDispatch  =useDispatch();
-
-    const submitUser = () => {
-        const user ={
-            firstName: state.firstName,
-            lastName: state.lastName,
-            email: state.email,
-            dob: cleanDateForRequest(state.dob)
-        }
-
-        console.log("we are attempting to register the user");
-
-        dispatch(registerUser(user));
-    }
 
     return(
         <div className="reg-step-three-container">
@@ -48,7 +34,6 @@ export const RegisterFormThree: React.FC = () => {
                     <span className="reg-step-three-link">Learn more</span>. Others will be able to find you by email or phoene number, when provided unless you choose otherwise <span className="reg-step-three-link">here</span>
                 </p>
             </div>
-            <StyledNextButton onClick={submitUser} color="blue" active={true}>Sign Up</StyledNextButton>
         </div>
     )
 }

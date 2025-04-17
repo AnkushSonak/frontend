@@ -7,11 +7,6 @@ import './RegisterFormtwo.css'
 import { CheckBox } from '../../../../components/CheckBox/CheckBox';
 
 export const RegisterFormTwo:React.FC = () => {
-    const dispatch: AppDispatch = useDispatch();
-
-    const nextStep = () => {
-        dispatch(incrementStep());
-    }
 
     return (
         <div className="reg-step-two-container">
@@ -34,7 +29,6 @@ export const RegisterFormTwo:React.FC = () => {
                     email address and phone number for the purpose outline in our Privacy Policy. <span className='reg-step-two-link'>Learn more</span>
                 </p>
             </div>
-            <StyledNextButton active ={true} color ={"black"} onClick={nextStep}>Next</StyledNextButton>
         </div>
     )
 }

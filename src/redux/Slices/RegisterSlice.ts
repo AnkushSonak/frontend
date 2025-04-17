@@ -16,6 +16,8 @@ import axios from 'axios'
         step: number;
         username: string;
         phoneNumber: string;
+        phoneNumberValid: boolean;
+        code: string;
     } 
 
     interface UpdatePayload {
@@ -61,7 +63,9 @@ import axios from 'axios'
         dobValid: false,
         step: 1,
         username: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        phoneNumberValid: false,
+        code: ""
     }
 
     export const registerUser = createAsyncThunk(
@@ -155,6 +159,7 @@ import axios from 'axios'
 
             incrementStep(state){
                 state.step++;
+                state.error = false;
                 return state;
             },
 
