@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { StyledNextButtonProps } from '../../../../utils/GlobalInterfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../redux/Store';
-import { incrementStep, registerUser, sendVerification, updateUserPhone } from '../../../../redux/Slices/RegisterSlice';
+import { incrementStep, registerUser, sendVerification, updateUserPassword, updateUserPhone } from '../../../../redux/Slices/RegisterSlice';
 import { cleanDateForRequest } from '../../../../utils/DateUtils';
 
 export const StyledNextButton = styled.button<StyledNextButtonProps>`
@@ -55,6 +55,14 @@ export const RegisterNextButton: React.FC<RegisterNextButtonProps> = ({step}) =>
                         code: state.code
                     }))
     }
+
+    const sendPassword = () => {
+        dispatch(updateUserPassword({
+            username: state.username,
+            password: state.password
+        }));
+    }
+
     const determineButtonContent = (step: number):JSX.Element => {
 
     switch (step) {
@@ -96,6 +104,15 @@ export const RegisterNextButton: React.FC<RegisterNextButtonProps> = ({step}) =>
                         onClick={verifyEmail}>
                             Next
                     </StyledNextButton>
+
+        case 6:
+            return <StyledNextButton
+                        active={state.password.length >= 8}
+                        disabled={!(state.password.length >= 8)}
+                        onClick={sendPassword}
+                        color={"black"}>
+                            Next
+                     </StyledNextButton>            
 
         default:
             return <StyledNextButton

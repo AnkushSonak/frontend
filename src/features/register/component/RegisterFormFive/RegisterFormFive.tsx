@@ -28,15 +28,6 @@ export const RegisterFormFive: React.FC = () => {
        ) 
     };
 
-    const verify = () =>{
-        dispatch(
-            sendVerification({
-                username: state.username,
-                code
-            })
-        )
-    }
-
     return(
         <div className="reg-step-five-container">
             <div className="reg-step-five-content">
