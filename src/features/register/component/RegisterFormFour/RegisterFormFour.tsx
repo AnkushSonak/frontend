@@ -4,7 +4,6 @@ import { DropDown } from "../../../../components/DropDown/DropDown";
 import { ValidatedTextInput } from "../../../../components/ValidatedInput/ValidatedTextInput";
 import { countryCodeDropDown } from "../../utils/RegisterModalUtils";
 import { validatePhone } from "../../../../services/Validators";
-import { StyledNextButton } from "../RegisterNextButton/RegisterNextButton";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { updateRegister, updateUserPhone } from "../../../../redux/Slices/RegisterSlice";
@@ -32,17 +31,14 @@ export const RegisterFormFour:React.FC = () => {
         }))
     }
 
-    const sendPhoneNumber = () => {
-        dispatch(updateUserPhone({
-            username: state.username,
-            phone: phoneNumber
-        }))
-    }
-
     useEffect(() => {
         console.log(phoneCode, phoneNumber);
         if(phoneNumber){
             setValidNumber(validatePhone(phoneNumber));
+            dispatch(updateRegister({
+                name: "phoneNumberValid",
+                value: validatePhone(phoneNumber)
+            }))
         }
         console.log(state);
     }, [phoneCode, phoneNumber])
@@ -75,13 +71,6 @@ export const RegisterFormFour:React.FC = () => {
                     <CheckBox />
                 </div>
             </div>
-            <StyledNextButton
-                    disabled={(phoneNumber && validNumber) ? false : true}
-                    color={"black"}
-                    active={(phoneNumber && validNumber) ? true : false}
-                    onClick={sendPhoneNumber}>
-                        Update Number
-                    </StyledNextButton> 
         </div>
     )
 }

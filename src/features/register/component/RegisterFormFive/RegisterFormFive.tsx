@@ -4,7 +4,7 @@ import './RegisterFormFive.css';
 import { AppDispatch, RootState } from '../../../../redux/Store';
 import { ValidatedTextInput } from '../../../../components/ValidatedInput/ValidatedTextInput';
 import { StyledNextButton } from '../RegisterNextButton/RegisterNextButton';
-import { resendEmail, sendVerification } from '../../../../redux/Slices/RegisterSlice';
+import { resendEmail, sendVerification, updateRegister } from '../../../../redux/Slices/RegisterSlice';
 
 export const RegisterFormFive: React.FC = () => {
 
@@ -16,6 +16,10 @@ export const RegisterFormFive: React.FC = () => {
 
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         setCode(e.target.value);
+        dispatch(updateRegister({
+            name: "code",
+            value: e.target.value
+        }));
     }
 
     const resend = () => {
@@ -23,15 +27,6 @@ export const RegisterFormFive: React.FC = () => {
         resendEmail(state.username)
        ) 
     };
-
-    const verify = () =>{
-        dispatch(
-            sendVerification({
-                username: state.username,
-                code
-            })
-        )
-    }
 
     return(
         <div className="reg-step-five-container">
@@ -42,8 +37,6 @@ export const RegisterFormFive: React.FC = () => {
                 label={"Verification code"} changeValue={handleChange} />
                 <p className='reg-step-five-message' onClick={resend}>Didn't receive an email?</p>
             </div>
-            <StyledNextButton active={code ? true : false} disabled={code ? false : true} color={'black'}
-                onClick={verify}>Next</StyledNextButton>
         </div>
     )
 }

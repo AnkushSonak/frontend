@@ -16,6 +16,10 @@ import axios from 'axios'
         step: number;
         username: string;
         phoneNumber: string;
+        phoneNumberValid: boolean;
+        code: string;
+        password: string;
+        login: boolean;
     } 
 
     interface UpdatePayload {
@@ -59,9 +63,13 @@ import axios from 'axios'
             year: 0
         },
         dobValid: false,
-        step: 4,
+        step: 1,
         username: "",
-        phoneNumber: ""
+        phoneNumber: "",
+        phoneNumberValid: false,
+        code: "",
+        password: "",
+        login: false
     }
 
     export const registerUser = createAsyncThunk(
@@ -155,6 +163,7 @@ import axios from 'axios'
 
             incrementStep(state){
                 state.step++;
+                state.error = false;
                 return state;
             },
 
@@ -252,10 +261,10 @@ import axios from 'axios'
                 state = {
                     ...state,
                     loading: false,
-                    error: false
+                    error: false,
+                    login: true
                 }
-                console.log("forward user to the homepage")
-                console.log("call the login thunk to be made, to make sure they have a JWT created")
+
                 return state;
             });
 
