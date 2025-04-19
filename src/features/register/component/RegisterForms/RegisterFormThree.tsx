@@ -3,7 +3,7 @@ import { ValidatedDisplay } from "../../../../components/ValidatedInput/Validate
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/Store";
 import { stringifyDate } from "../../../../utils/DateUtils";
-import '../RegisterForms/RegisterForm.css';
+import './RegisterForm.css';
 import '../../../../assets/global.css';
 
 export const RegisterFormThree: React.FC = () => {

@@ -6,7 +6,7 @@ import { determineModalContent } from '../../utils/RegisterModalUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../../redux/Store'
 import { decrementStep } from '../../../../redux/Slices/RegisterSlice'
-import { RegisterNextButton, StyledNextButton } from '../RegisterNextButton/RegisterNextButton'
+import { RegisterNextButton } from '../RegisterNextButton/RegisterNextButton'
 
 export const RegisterModal:React.FC = () => {
 

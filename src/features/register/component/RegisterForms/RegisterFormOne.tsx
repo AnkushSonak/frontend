@@ -4,7 +4,7 @@ import { RootState } from '../../../../redux/Store';
 import { RegisterDateInput} from '../RegisterDateInput/RegisterDateInput';
 import { RegisterNameInputs } from '../RegisterNameInput/RegisterNameInput';
 import { RegisterEmailInput } from '../RegisterEmailInput/RegisterEmailInput';
-import '../RegisterForms/RegisterForm.css'
+import './RegisterForm.css'
 import '../../../../assets/global.css'
 
 interface FormOneState{

@@ -7,7 +7,7 @@ import { validatePhone } from "../../../../services/Validators";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { updateRegister } from "../../../../redux/Slices/RegisterSlice";
-import '../RegisterForms/RegisterForm.css';
+import './RegisterForm.css';
 import '../../../../assets/global.css';
 
 export const RegisterFormFour:React.FC = () => {
@@ -68,7 +68,7 @@ export const RegisterFormFour:React.FC = () => {
                     <CheckBox />
                 </div>
                 <div className="register-four-checkbox-wrapper">
-                    <p className="register-text color-gray">Let Fwitter use your phone number to personalize our services, including ads (if permitted by your Ads preferences). If you don't enable this, Fwitter will stil use your phone number for the purposes including account security, spam, fraud and abuse prevention, <span className="reg-step-four-link">See our Privacy Policy for more information.</span></p>
+                    <p className="register-text color-gray">Let Fwitter use your phone number to personalize our services, including ads (if permitted by your Ads preferences). If you don't enable this, Fwitter will stil use your phone number for the purposes including account security, spam, fraud and abuse prevention, <span className="register-link color-blue">See our Privacy Policy for more information.</span></p>
                     <CheckBox />
                 </div>
             </div>

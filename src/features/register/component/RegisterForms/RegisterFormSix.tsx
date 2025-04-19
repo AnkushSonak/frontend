@@ -1,13 +1,13 @@
 import VisibilityOutlinedIcon  from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon  from "@mui/icons-material/VisibilityOffOutlined";
-import './RegisterFormSix.css';
 import React, { useEffect, useState } from "react";
 import { ValidatedTextInput } from "../../../../components/ValidatedInput/ValidatedTextInput";
-import { StyledNextButton } from "../RegisterNextButton/RegisterNextButton";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRegister, updateUserPassword } from "../../../../redux/Slices/RegisterSlice";
+import { updateRegister } from "../../../../redux/Slices/RegisterSlice";
 import { useNavigate } from 'react-router-dom';
+import './RegisterForm.css';
+import '../../../../assets/global.css';
 
 export const RegisterFormSix:React.FC =() => {
 
@@ -39,18 +39,18 @@ export const RegisterFormSix:React.FC =() => {
     }, [state.login])
 
     return(
-        <div className="reg-step-six-container">
-            <div className="reg-step-six-content">
-                <h1>You'll need a password</h1>
-                <p>Make sure it's 8 character or more.</p>
-                <div className="reg-step-six-password">
+        <div className="register-container">
+            <div className="register-content">
+                <h1 className="register-heaader-2">You'll need a password</h1>
+                <p className="register-text color-gray">Make sure it's 8 character or more.</p>
+                <div className="register-six-password">
                     <ValidatedTextInput valid={true} label={"Password"}
                     name={"password"} changeValue={handleChange}
                     attributes={{
                         minLength:8,
                         type: active ? "text" : "password"
                     }} />
-                    <div onClick={toggleView} className="reg-step-six-icon">
+                    <div onClick={toggleView} className="register-six-icon">
                         {active ? 
                             <VisibilityOffOutlinedIcon sx={{
                                 fontSize: "24px"
