@@ -174,6 +174,11 @@ import axios from 'axios'
                     state.step--;
                     return state;
                 }
+            },
+
+            cleanRegisterState(state){
+                state = initialState
+                return state;
             }
         }, 
         extraReducers: (builder) => {
@@ -316,6 +321,6 @@ import axios from 'axios'
         }
     });
 
-    export const {updateRegister, incrementStep, decrementStep} = RegisterSlice.actions;
+    export const {updateRegister, incrementStep, decrementStep, cleanRegisterState} = RegisterSlice.actions;
 
     export default RegisterSlice.reducer;

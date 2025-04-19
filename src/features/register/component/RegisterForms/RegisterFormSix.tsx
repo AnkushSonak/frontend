@@ -8,10 +8,11 @@ import { updateRegister } from "../../../../redux/Slices/RegisterSlice";
 import { useNavigate } from 'react-router-dom';
 import './RegisterForm.css';
 import '../../../../assets/global.css';
+import { loginUser, setFromRegister } from "../../../../redux/Slices/UserSlice";
 
 export const RegisterFormSix:React.FC =() => {
 
-    const state = useSelector((state:RootState) => state.register);
+    const state = useSelector((state:RootState) => state);
     const dispatch:AppDispatch = useDispatch();
 
     const [active, setActive] = useState<boolean>(false);
@@ -32,11 +33,25 @@ export const RegisterFormSix:React.FC =() => {
     }
 
     useEffect(() => {
-        if(state.login){
-            //store some user info into local Storage, so that we can load the user into the user slice when we hit the feed page
-            navigate("/home");
+        if(state.user.loggedIn){
+            navigate('/home');
         }
-    }, [state.login])
+        if(state.user.fromRegister){
+            //we are ready to dispatch the login
+            dispatch(loginUser({
+                username: state.register.username,
+                password: state.register.password
+            }));
+
+            return;
+        }
+        if(state.register.login){
+            //store some user info into local Storage, so that we can load the user into the user slice when we hit the feed page
+            // navigate("/home");
+            //set the dispatch to set user.fromRegister
+            dispatch(setFromRegister(true));
+        }
+    }, [state.register.login, state.user.loggedIn, state.user.fromRegister]);
 
     return(
         <div className="register-container">
