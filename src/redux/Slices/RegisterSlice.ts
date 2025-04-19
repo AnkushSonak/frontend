@@ -63,7 +63,7 @@ import axios from 'axios'
             year: 0
         },
         dobValid: false,
-        step: 2,
+        step: 4,
         username: "",
         phoneNumber: "",
         phoneNumberValid: false,
