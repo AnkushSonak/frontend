@@ -35,6 +35,9 @@ export const RegisterFormSix:React.FC =() => {
     useEffect(() => {
         if(state.user.loggedIn){
             navigate('/home');
+            return(() => {
+                
+            });
         }
         if(state.user.fromRegister){
             //we are ready to dispatch the login

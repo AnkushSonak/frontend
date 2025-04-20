@@ -1,19 +1,27 @@
 import React, {useEffect, useState} from 'react'
 import { Modal } from '../../../../components/Modal/Modal'
-import './RegisterModal.css'
 import { RegisterationStepCounter } from '../RegisterStepCounter/RegistrationStepCounter' 
 import { determineModalContent } from '../../utils/RegisterModalUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../../redux/Store'
 import { cleanRegisterState, decrementStep } from '../../../../redux/Slices/RegisterSlice'
 import { RegisterNextButton } from '../RegisterNextButton/RegisterNextButton'
+import './RegisterModal.css'
 
-export const RegisterModal:React.FC = () => {
+interface RegisterModalProps{
+  toggleModal: () =>void;
+}
+
+export const RegisterModal:React.FC<RegisterModalProps> = ({toggleModal}) => {
 
   const state = useSelector((state: RootState) => state.register);
   const dispatch:AppDispatch = useDispatch();
 
     const stepButtonClicked = () => {
+      if(state.step === 1){
+        toggleModal();
+        return;
+      }
       dispatch(decrementStep());
 }
 
