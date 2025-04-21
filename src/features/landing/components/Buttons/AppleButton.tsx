@@ -2,7 +2,7 @@ import apple from '../../../../assets/apple.png';
 import '../../../../assets/global.css';
 import './Buttons.css';
 
-export const GoogleButton: React.FC = () => {
+export const AppleButton: React.FC = () => {
     return (
         <div className="landing-button apple">
             <img src={apple} className="landing-button-logo" />

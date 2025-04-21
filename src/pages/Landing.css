@@ -13,6 +13,15 @@
 .landing-top-left{
     grid-area: one;
     height: 33vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../assets/whatshappening.png');
+}
+
+.landing-top-left-logo{
+    max-width: auto;
+    height: 60%;
 }
 
 .landing-top-right{
@@ -29,7 +38,7 @@
     height: fit-content;
 }
 
-@media (min-width: 100px){
+@media (min-width: 1000px){
     .landing-layout{
         height: 100%;
         grid-template-areas:
@@ -47,6 +56,10 @@
         grid-area: two;
         height: 100%;
         justify-content: flex-start;
+    }
+    .landing-top-left-logo{
+        max-width: 35%;
+        height: auto;
     }
 }
 
@@ -69,5 +82,9 @@
         grid-area: two;
         height: 100%;
         justify-content: flex-start;
+    }
+    .landing-top-left-logo{
+        max-width: 35%;
+        height: auto;
     }
 }

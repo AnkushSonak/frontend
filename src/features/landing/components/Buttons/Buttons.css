@@ -60,3 +60,17 @@
     font-weight: 600;
     color: white;
 }
+
+.sign-in{
+    border: 1px solid lightgray;
+}
+
+.sign-in:hover{
+    cursor: pointer;
+    background-color: rgba(29, 155, 240, .1);
+}
+
+.sign-in-text{
+    font-size: 16px;
+    font-weight: 600;
+}
