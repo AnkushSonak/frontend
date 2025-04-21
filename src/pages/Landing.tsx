@@ -3,6 +3,7 @@ import './Landing.css';
 import '../assets/global.css';
 
 import RegisterModal from '../features/register';
+import { RightSideBar } from '../features/landing/components/RightSideBar/RightSideBar';
 
 export const Landing:React.FC = () => {
 
@@ -18,7 +19,7 @@ export const Landing:React.FC = () => {
 
         </div>
         <div className="landing-top-right">
-            <button onClick={toggleRegister}>Register Here</button>
+          <RightSideBar toggleLogin={() => {}} toggleRegister={toggleRegister} />
         </div>
         <div className="landing-bottom">
           content

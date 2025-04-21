@@ -11,14 +11,14 @@ export const RightSideBar:React.FC<RightSideBarProps>= ({toggleRegister, toggleL
     return (
         <div className='right-side-bar'>
             <img src={logoBlue} className='right-side-bar-logo' />
-            <h1 className='right-side-bar-h1'>Happening Now</h1>
-            <h2 className='right-side-bar-h2'>Join Fwitter Today.</h2>
+            <h1 className='right-side-bar-h1'>Happening now</h1>
+            <h2 className='right-side-bar-h2'>Join Fwitter today.</h2>
             <div className="right-side-bar-signup-wrapper">
                 <button>Sign up with Google</button>
                 <button>Sign up with Apple</button>
                 <div className="right-side-bar-divider">
                     <div className="right-side-bar-line"></div>
-                    <p className='right-side-bar-or'></p>
+                    <p className='right-side-bar-or'>or</p>
                     <div className="right-side-bar-line"></div>
                 </div>
                 <button onClick={toggleRegister}>Create Account</button>
