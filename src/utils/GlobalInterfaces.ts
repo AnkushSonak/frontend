@@ -44,3 +44,34 @@ export interface StyledCheckBoxProps{
     active: boolean;
     theme: Theme;
 }
+
+export interface User{
+    userId: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    username: string;
+    phone: string;
+    dateOfBireth: Dob;
+    bio: string; 
+    nickname: string;
+    profilePicture: string;
+    bannerPicture: string;
+}
+
+interface RGBA {
+    r: number;
+    g: number;
+    b: number;
+    a: number;
+}
+
+export interface ModalButtonProps{
+    fontColor: string;
+    borderColor?: string;
+    backgroundColor: string;
+    fontSize: number;
+    fontWeight: number;
+    hoverBackground: RGBA;
+    hoverBorder?: RGBA; 
+}

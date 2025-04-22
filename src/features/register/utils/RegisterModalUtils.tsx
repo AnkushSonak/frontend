@@ -1,11 +1,11 @@
 import { JSX } from "react";
-import { RegisterFormOne } from "../component/RegisterFormOne/RegisterFormOne";
-import { RegisterFormTwo } from "../component/RegisterFormTwo/RegisterFormTwo";
-import { RegisterFormThree } from "../component/RegisterFormThree/RegisterFormThree";
-import { RegisterFormFour } from "../component/RegisterFormFour/RegisterFormFour";
+import { RegisterFormOne } from "../component/RegisterForms/RegisterFormOne";
+import { RegisterFormTwo } from "../component/RegisterForms/RegisterFormTwo";
+import { RegisterFormThree } from "../component/RegisterForms/RegisterFormThree";
+import { RegisterFormFour } from "../component/RegisterForms/RegisterFormFour";
 import data from '../../../data/codes.json'
-import { RegisterFormFive } from "../component/RegisterFormFive/RegisterFormFive";
-import { RegisterFormSix } from "../component/RegisterFormSix/RegisterFormSix";
+import { RegisterFormFive } from "../component/RegisterForms/RegisterFormFive";
+import { RegisterFormSix } from "../component/RegisterForms/RegisterFormSix";
 
 export const determineModalContent = (step: number): JSX.Element => {
     switch(step){

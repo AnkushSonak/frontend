@@ -1,5 +1,5 @@
 .register-name-input{
-    width: 1005;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
