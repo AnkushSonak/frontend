@@ -2,9 +2,11 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../utils/GlobalInterfaces";
 import axios from 'axios'
 import { AcUnit, Email } from "@mui/icons-material";
+import { StringLiteral } from "typescript";
 
 interface USerSliceState{
     loggedIn: User | undefined;
+    username: string;
     fromRegister: boolean;
     error: boolean;
 }
@@ -14,15 +16,22 @@ interface LoginBody{
     password: string;
 }
 
+interface VerifyUserBody {
+    email: String;
+    phone: string;
+    username: string;
+}
+
 const initialState: USerSliceState = {
     loggedIn: undefined,
+    username: '',
     fromRegister: false,
     error: false
 };
 
 export const loginUser = createAsyncThunk(
     'user/login',
-    async(body:LoginBody, thunkAPI) => {
+    async(body: LoginBody, thunkAPI) => {
         try {
             const req = await axios.post('http://localhost:8000/auth/login', body);
             return req.data;
@@ -30,6 +39,18 @@ export const loginUser = createAsyncThunk(
             thunkAPI.rejectWithValue(e);
         }
     }    
+)
+
+export const VerifyUsername = createAsyncThunk(
+    'user/username',
+    async(body: VerifyUserBody, thunkAPI) => {
+        try {
+            const req = await axios.post('http://localhost:8000/auth/find', body);
+            return req.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e);
+        }
+    }
 )
 
 export const UserSlice = createSlice({
@@ -63,7 +84,31 @@ export const UserSlice = createSlice({
                 }
             }
             return state;
-        })
+        });
+        
+        builder.addCase(VerifyUsername.fulfilled,  (state, action) => {
+            state = {
+                ...state,
+                username: action.payload
+            };
+            return state;
+        });
+
+        builder.addCase(VerifyUsername.pending,  (state, action) => {
+            state = {
+                ...state,
+                error: false
+            };
+            return state;
+        });
+
+        builder.addCase(VerifyUsername.rejected,  (state, action) => {
+            state = {
+                ...state,
+                error: true
+            };
+            return state;
+        });
     }
 });
 

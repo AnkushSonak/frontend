@@ -45,3 +45,11 @@
     margin: 0;
     margin-top: 40px;
 }
+
+.login-form-one-error{
+    margin: 0;
+    font-size: 13px;
+    font-weight: 200;
+    margin-left: 10px;
+    margin-top: 5px;
+}
