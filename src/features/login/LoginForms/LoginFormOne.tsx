@@ -1,12 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { ValidatedTextInput } from "../../../components/ValidatedInput/ValidatedTextInput";
 import google from '../../../assets/google.png';
 import apple from '../../../assets/apple.png';
 import '../../../assets/global.css';
 import './LoginForms.css';
 import { ModalButton } from "../../../components/ModalButton/ModalButton";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/Store";
+import { Email } from "@mui/icons-material";
+import { validateEmail, validatePhone } from "../../../services/Validators";
+import { VerifyUsername } from "../../../redux/Slices/UserSlice";
 
 export const LoginFormOne: React.FC = () => {
+
+    const state = useSelector((state:RootState) => state.user);
+
+    const dispatch:AppDispatch = useDispatch();
+
+    const [credential, setCredential] = useState<string>("");
+
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>): void => {
+        setCredential(e.target.value);
+    }
+
+    const findUsername = (): void => {
+        let body = {
+            email: '',
+            phone: '',
+            username: ''
+        }
+
+        if(validateEmail(credential)){
+            body.email = credential;
+        }else if(validatePhone(credential)){
+            body.phone = credential;
+        }else{
+            body.username = credential;
+        }
+
+        dispatch(VerifyUsername(body));
+    }
+ 
     return (
         <div className="login-form-one-container">
             <h1 className="login-form-header">
@@ -62,11 +96,12 @@ export const LoginFormOne: React.FC = () => {
                 <div className="login-form-one-line"></div>
             </div>
             <ValidatedTextInput
-                valid={true}
+                valid={!state.error}
                 name={'identifier'}
                 label={'Phone, email, or username'}
-                changeValue={() => {}}
+                changeValue={handleChange}
             />
+            {state.error ? <p className="login-form-one-error color-red">Unable to find user</p> : <></>}
             <ModalButton
                 fontColor={'white'}
                 backgroundColor={'black'}
@@ -78,6 +113,7 @@ export const LoginFormOne: React.FC = () => {
                     b: 0,
                     a: .9
                 }}
+                onClick={findUsername}
             >
                 Next
             </ModalButton>
