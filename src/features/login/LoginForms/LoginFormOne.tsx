@@ -47,6 +47,8 @@ export const LoginFormOne: React.FC = () => {
                 Sign in to Fwitter
             </h1>
             <ModalButton
+                active = {true}
+                height={40}
                 fontColor={'#536471'}
                 borderColor={'#536471'}
                 backgroundColor={'white'}
@@ -69,6 +71,8 @@ export const LoginFormOne: React.FC = () => {
                 Sign in with Google
             </ModalButton> 
             <ModalButton
+                active = {true}
+                height={40}
                 fontColor={'black'}
                 borderColor={'#536471'}
                 backgroundColor={'white'}
@@ -103,6 +107,8 @@ export const LoginFormOne: React.FC = () => {
             />
             {state.error ? <p className="login-form-one-error color-red">Unable to find user</p> : <></>}
             <ModalButton
+                active = {true}
+                height={40}
                 fontColor={'white'}
                 backgroundColor={'black'}
                 fontSize={16}
@@ -118,6 +124,8 @@ export const LoginFormOne: React.FC = () => {
                 Next
             </ModalButton>
             <ModalButton
+                active = {true}
+                height={40}
                 fontColor={'black'}
                 borderColor={'#D3D3D3'}
                 backgroundColor={'white'}
