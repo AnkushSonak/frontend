@@ -5,6 +5,7 @@ import { LoginModalTop } from "../LoginModalTop/LoginModalTop";
 import { RootState } from "../../../redux/Store";
 import React, { useState } from "react";
 import { LoginFormTwo } from "../LoginForms/LoginFormTwo";
+import { LoginButton } from "../LoginButton/LoginButton";
 
 interface LoginModalProps{
     toggleModal: () => void;
@@ -24,7 +25,7 @@ export const LoginModal:React.FC<LoginModalProps> =({toggleModal}) =>{
         <Modal
             topContent={<LoginModalTop closeModal={toggleModal} />}
             content={state.username ? <LoginFormTwo setPassword={handlePassword} /> : <LoginFormOne />}
-            bottomContent={state.username ?  <div>Login Form 2 Button</div> : <></>}
+            bottomContent={state.username ?  <LoginButton username={state.username} password={password} /> : <></>}
         /> 
     )
 }
