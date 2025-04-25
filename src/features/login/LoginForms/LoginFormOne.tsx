@@ -11,7 +11,11 @@ import { Email } from "@mui/icons-material";
 import { validateEmail, validatePhone } from "../../../services/Validators";
 import { VerifyUsername } from "../../../redux/Slices/UserSlice";
 
-export const LoginFormOne: React.FC = () => {
+interface LoginFormOneProps{
+    noAccount: ()=> void;
+}
+
+export const LoginFormOne: React.FC<LoginFormOneProps> = ({noAccount}) => {
 
     const state = useSelector((state:RootState) => state.user);
 
@@ -146,7 +150,7 @@ export const LoginFormOne: React.FC = () => {
             >
                 Forgot Password
             </ModalButton>
-            <p className="login-form-one-text color-gray">Don't have an account? <span className="link color-blue">Sign up</span></p>
+            <p className="login-form-one-text color-gray">Don't have an account? <span className="link color-blue" onClick={noAccount}>Sign up</span></p>
         </div>
     )
 }

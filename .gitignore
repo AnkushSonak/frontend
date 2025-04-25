@@ -1,0 +1,13 @@
+
+# files to be ignored
+src/react-app-env.d.ts
+node_modules/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
