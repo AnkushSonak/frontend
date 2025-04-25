@@ -5,8 +5,13 @@ import whiteLogo from '../assets/fwitter-logo-large-white.png';
 import './Landing.css';
 import '../assets/global.css';
 import LoginModal from '../features/login';
+import { AppDispatch } from '../redux/Store';
+import { useDispatch } from 'react-redux';
+import { resetUsername } from '../redux/Slices/UserSlice';
 
 export const Landing:React.FC = () => {
+
+  const dispatch:AppDispatch = useDispatch();
 
   const [register, setRegister] = useState<boolean>(false);
   const [login, setLogin] = useState<boolean>(false);
@@ -17,6 +22,7 @@ export const Landing:React.FC = () => {
 
   const toggleLogin = () => {
     setLogin(!login);  
+    dispatch(resetUsername());
   }
 
   return (

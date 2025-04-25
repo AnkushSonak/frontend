@@ -3,15 +3,18 @@ import { Modal } from "../../../components/Modal/Modal";
 import { LoginFormOne } from "../LoginForms/LoginFormOne";
 import { LoginModalTop } from "../LoginModalTop/LoginModalTop";
 import { RootState } from "../../../redux/Store";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginFormTwo } from "../LoginForms/LoginFormTwo";
 import { LoginButton } from "../LoginButton/LoginButton";
+import { useNavigate } from "react-router-dom";
 
 interface LoginModalProps{
     toggleModal: () => void;
 }
 
 export const LoginModal:React.FC<LoginModalProps> =({toggleModal}) =>{
+
+    const navigate = useNavigate();
 
     const state = useSelector((state:RootState) => state.user);
 
@@ -20,6 +23,15 @@ export const LoginModal:React.FC<LoginModalProps> =({toggleModal}) =>{
     const handlePassword = (e:React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     }
+
+    useEffect(() => {
+        if(state.loggedIn){
+            navigate("/home");
+            return () => {
+                
+            }
+        }
+    })
 
     return (
         <Modal

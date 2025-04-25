@@ -105,7 +105,7 @@ export const LoginFormOne: React.FC = () => {
                 label={'Phone, email, or username'}
                 changeValue={handleChange}
             />
-            {state.error ? <p className="login-form-one-error color-red">Unable to find user</p> : <></>}
+            {state.error ? <p className="login-form-error color-red">Unable to find user</p> : <></>}
             <ModalButton
                 active = {true}
                 height={40}
