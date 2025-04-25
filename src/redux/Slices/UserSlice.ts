@@ -7,6 +7,7 @@ import { StringLiteral } from "typescript";
 interface USerSliceState{
     loggedIn: User | undefined;
     username: string;
+    token: string;
     fromRegister: boolean;
     error: boolean;
 }
@@ -25,6 +26,7 @@ interface VerifyUserBody {
 const initialState: USerSliceState = {
     loggedIn: undefined,
     username: '',
+    token: '',
     fromRegister: false,
     error: false
 };
@@ -72,6 +74,15 @@ export const UserSlice = createSlice({
                 username: ''
             };
             return state;
+        },
+
+        setToken(state, action:PayloadAction<string>){
+            state = {
+                ...state,
+                error: true
+            };
+
+            return state;
         }
     },
     extraReducers: (builder) => {
@@ -90,7 +101,8 @@ export const UserSlice = createSlice({
                     nickname: action.payload.user.nickname,
                     profilePicture: action.payload.user.profilePicture,
                     bannerPicture: action.payload.user.bannerPicture,
-                }
+                },
+                token: action.payload.token
             }
             return state;
         });
@@ -137,6 +149,6 @@ export const UserSlice = createSlice({
     }
 });
 
-export const {setFromRegister, resetUsername} = UserSlice.actions;
+export const {setFromRegister, resetUsername, setToken} = UserSlice.actions;
 
 export default UserSlice.reducer;
