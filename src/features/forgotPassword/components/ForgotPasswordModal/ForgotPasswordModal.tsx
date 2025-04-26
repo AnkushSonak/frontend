@@ -5,6 +5,8 @@ import { ForgotModalTop } from "../ForgotModalTop/ForgotModalTop"
 import { Password } from "@mui/icons-material"
 import { validateEmail, validatePhone } from "../../../../services/Validators"
 import axios from 'axios'
+import { ForgotButtonOne } from "../ForgotButtonOne/ForgotButtonOne"
+import { ForgotFormTwo } from "../ForgotForms/ForgotFormTwo"
 
 export const ForgotPasswordModal:React.FC<{toggleModal: ()=>void}> = ({toggleModal}) => {
 
@@ -40,7 +42,7 @@ export const ForgotPasswordModal:React.FC<{toggleModal: ()=>void}> = ({toggleMod
                 username:credential
             }
         }
-
+        console.log("credentials: " + credential);
         try{
             setError(false);
             let res = await axios.post('http://localhost:8000/auth/find', findUserDTO);
@@ -53,7 +55,7 @@ export const ForgotPasswordModal:React.FC<{toggleModal: ()=>void}> = ({toggleMod
 
     return(<Modal
         topContent={<ForgotModalTop closeModal={toggleModal} />}
-        content={<ForgotFormOne setCredential={() => {}} error={false}  />}
-        bottomContent={step === 1 ? <button onClick={searchUser}>Search for user</button> : <></>}
+        content={step === 1 ? <ForgotFormOne setCredential={changeCredential} error={false}  /> : <ForgotFormTwo />}
+        bottomContent={step === 1 ? <ForgotButtonOne value={credential} handleClick={searchUser} />: <>Step two button</>}
     />)
 }
