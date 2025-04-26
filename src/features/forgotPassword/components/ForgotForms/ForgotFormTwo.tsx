@@ -1,8 +1,23 @@
 import './ForgotForm.css';
 import '../../../../assets/global.css';
-import React from 'react';
+import React, { useState } from 'react';
+import { ForgotRadioButton } from '../ForgotRadioButton/ForgotRadioButton';
 
 export const ForgotFormTwo:React.FC = () => {
+
+    const [emailActive, setEmailActive] = useState<boolean>(false);
+    const [phoneActive, setPhoneActive] = useState<boolean>(false);
+
+    const handleEmailClick = () => {
+        setEmailActive(true);
+        setPhoneActive(false);
+    }
+
+    const handlePhoneClick = () => {
+        setPhoneActive(true);
+        setEmailActive(false);
+    }
+
     return (
         <div className="forgot-form-container">
             <h1 className='forgot-form-header'>
@@ -16,11 +31,11 @@ export const ForgotFormTwo:React.FC = () => {
             </p>
             <div className="forgot-form-two-select-group">
                 <p className="forgot-form-two-select-text">Send an email to...</p>
-                <input type="radio" value="email" id='email' onChange={() => {}} />
+                <ForgotRadioButton clicked={emailActive} handleClick = {handleEmailClick} />
             </div>
             <div className="forgot-form-two-select-group">
                 <p className="forgot-form-two-select-text">Text a code to the number ending in...</p>
-                <input type="radio" value="phone" id='phone' onChange={() => {}} />
+                <ForgotRadioButton clicked={phoneActive} handleClick = {handlePhoneClick} />
             </div>
         </div>
     )
