@@ -1,4 +1,5 @@
 import { ForgotButtonOne } from "../components/ForgotButtonOne/ForgotButtonOne";
+import { ForgotButtonThree } from "../components/ForgotButtonThree/ForgotButtonThree";
 import { ForgotButtonTwo } from "../components/ForgotButtonTwo/ForgotButtonTwo";
 import { ForgotFormOne } from "../components/ForgotForms/ForgotFormOne"
 import { ForgotFormThree } from "../components/ForgotForms/ForgotFormThree";
@@ -18,7 +19,8 @@ export const determineForgotFormContent = (step: number, setCredential:(value:st
     return <></>
  }
 
- export const determineForgotButton = (step:number, credentials: string, searchUser: ()=> void, cancel:()=> void, sendCode: ()=>void): JSX.
+ export const determineForgotButton = (step:number, credentials: string, searchUser: ()=> void, cancel:()=> void, sendCode: ()=>void,
+formThreeActive: boolean, checkCode:()=>void, back:()=>void): JSX.
  Element => {
     switch(step){
         case 1:
@@ -26,7 +28,7 @@ export const determineForgotFormContent = (step: number, setCredential:(value:st
         case 2:
             return <ForgotButtonTwo onCancel={cancel} sendCode={sendCode} /> 
         case 3:
-            return <></>   
+            return <ForgotButtonThree active={formThreeActive} checkCode={checkCode} back={back} />    
     }
 
     return <></>

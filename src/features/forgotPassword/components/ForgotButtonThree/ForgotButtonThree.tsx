@@ -9,7 +9,7 @@ interface ForgotButtonThreeProps{
 
 export const ForgotButtonThree:React.FC<ForgotButtonThreeProps> = ({active, checkCode, back}) =>{
     return (
-        <div className="forgot-button-thee">
+        <div className="forgot-button-three">
             {
                 active ?
                     <ModalButton
