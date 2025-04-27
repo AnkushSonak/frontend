@@ -24,7 +24,7 @@ export const ForgotFormOne:React.FC<ForgotFormOneProps> = ({setCredential, error
             <ValidatedTextInput
                 valid={!error}
                 name={"forgot"}
-                label={"Email, phonne number, pr username"}
+                label={"Email, phone number, or username"}
                 changeValue={handleChange}
             />
             {error ? <p className='color-red forgot-error'>User not found</p> : <></>}
