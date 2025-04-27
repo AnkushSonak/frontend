@@ -4,7 +4,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import {Landing} from './pages/Landing'
 import { Theme } from './utils/GlobalInterfaces';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import { Feed } from './pages/Feed';
+import { Home } from './pages/Home';
 
 const theme:Theme = {
   colors: {
@@ -31,7 +31,7 @@ export const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Landing></Landing>} />
-          <Route path='/home' element={<Feed></Feed>} />
+          <Route path='/home' element={<Home></Home>} />
         </Routes>
       </Router>
     </ThemeProvider>

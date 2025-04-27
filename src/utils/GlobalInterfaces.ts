@@ -77,3 +77,9 @@ export interface ModalButtonProps{
     hoverBackground: RGBA;
     hoverBorder?: RGBA; 
 }
+
+export interface SVGProps{
+    height: number;
+    widht: number;
+    color?: string;
+}
