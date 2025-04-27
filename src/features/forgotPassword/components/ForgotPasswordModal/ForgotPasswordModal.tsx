@@ -1,12 +1,8 @@
 import { useState } from "react"
 import { Modal } from "../../../../components/Modal/Modal"
-import { ForgotFormOne } from "../ForgotForms/ForgotFormOne"
 import { ForgotModalTop } from "../ForgotModalTop/ForgotModalTop"
 import { validateEmail, validatePhone } from "../../../../services/Validators"
 import axios from 'axios'
-import { ForgotButtonOne } from "../ForgotButtonOne/ForgotButtonOne"
-import { ForgotFormTwo } from "../ForgotForms/ForgotFormTwo"
-import { ForgotButtonTwo } from "../ForgotButtonTwo/ForgotButtonTwo"
 import { determineForgotButton, determineForgotFormContent } from "../../utils/ForgotPasswordUtils"
 
 interface UserInfo{
@@ -91,6 +87,14 @@ export const ForgotPasswordModal:React.FC<{toggleModal: ()=>void}> = ({toggleMod
         }
     }
 
+    const checkCode = () => {
+        if(resetCode === userInputCode){
+            setStep(4);
+        }else{
+            setError(true);
+        }
+    }
+
     return(<Modal
         topContent={<ForgotModalTop closeModal={toggleModal} />}
         content={determineForgotFormContent(
@@ -107,7 +111,10 @@ export const ForgotPasswordModal:React.FC<{toggleModal: ()=>void}> = ({toggleMod
             credential,
             searchUser,
             toggleModal,
-            sendReset
+            sendReset,
+            userInputCode ? true : false,
+            checkCode,
+            () => {setStep(2)}
         )}
     />)
 }
