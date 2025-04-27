@@ -1,8 +1,7 @@
-import './ForgotForm.css';
-import '../../../../assets/global.css';
 import React, { useState } from 'react';
 import { ForgotRadioButton } from '../ForgotRadioButton/ForgotRadioButton';
-import { transform } from 'typescript';
+import './ForgotForm.css';
+import '../../../../assets/global.css';
 
 interface ForgotFormTwoProps{
     email: string;
