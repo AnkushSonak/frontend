@@ -5,6 +5,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import {setToken} from '../redux/Slices/UserSlice';
 import { useNavigate } from "react-router-dom";
 import './Home.css';
+import { Navigation } from "../components/Navigation/Navigation";
 
 export const Home:React.FC = () => {
 
@@ -36,7 +37,7 @@ export const Home:React.FC = () => {
         <div className="home">
             <div className="home-layout">
                 <div className="home-navigation-section">
-
+                    <Navigation />
                 </div>
                 <div className="home-content-section">
 
