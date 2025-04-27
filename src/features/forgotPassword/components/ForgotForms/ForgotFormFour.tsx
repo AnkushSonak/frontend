@@ -53,12 +53,12 @@ export const ForgotFormFour:React.FC<ForgotFormFourProps> = ({updatePassword, ma
             </div>
             <div className="forgot-form-four-password-wrapper">
                 <ValidatedTextInput
-                    valid={true}
+                    valid={matching ? true : false}
                     label={"Password"}
                     name={"confirm"}
                     attributes={{
                         minLength: 8,
-                        type: passwordToggle ? "text" : "password"
+                        type: confirmToggle ? "text" : "password"
                     }}
                     changeValue={updatePassword}    
                 />

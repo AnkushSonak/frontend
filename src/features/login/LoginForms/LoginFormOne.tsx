@@ -7,15 +7,15 @@ import './LoginForms.css';
 import { ModalButton } from "../../../components/ModalButton/ModalButton";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/Store";
-import { Email } from "@mui/icons-material";
 import { validateEmail, validatePhone } from "../../../services/Validators";
 import { VerifyUsername } from "../../../redux/Slices/UserSlice";
 
 interface LoginFormOneProps{
     noAccount: ()=> void;
+    forgot: () => void;
 }
 
-export const LoginFormOne: React.FC<LoginFormOneProps> = ({noAccount}) => {
+export const LoginFormOne: React.FC<LoginFormOneProps> = ({noAccount, forgot}) => {
 
     const state = useSelector((state:RootState) => state.user);
 
@@ -147,6 +147,7 @@ export const LoginFormOne: React.FC<LoginFormOneProps> = ({noAccount}) => {
                     b: 211,
                     a: 1.0
                 }}
+                onClick={forgot}
             >
                 Forgot Password
             </ModalButton>

@@ -1,12 +1,16 @@
+import React from "react";
 import { ForgotButtonOne } from "../components/ForgotButtonOne/ForgotButtonOne";
 import { ForgotButtonThree } from "../components/ForgotButtonThree/ForgotButtonThree";
 import { ForgotButtonTwo } from "../components/ForgotButtonTwo/ForgotButtonTwo";
+import { ForgotFormFour } from "../components/ForgotForms/ForgotFormFour";
 import { ForgotFormOne } from "../components/ForgotForms/ForgotFormOne"
 import { ForgotFormThree } from "../components/ForgotForms/ForgotFormThree";
 import { ForgotFormTwo } from "../components/ForgotForms/ForgotFormTwo";
+import { ForgotButtonFour } from "../components/ForgotButtonFour/ForgotButtonFour";
 
 export const determineForgotFormContent = (step: number, setCredential:(value:string)=> void, error:boolean, email: string,
- phone:string, valid:boolean, updateCode:(value:number)=> void):JSX.Element => {
+ phone:string, valid:boolean, updateCode:(value:number)=> void, updatePassword:(e:React.ChangeEvent<HTMLInputElement>) => void,
+ matching:boolean):JSX.Element => {
     switch(step){
         case 1: 
             return <ForgotFormOne setCredential={setCredential} error={error} />;
@@ -14,13 +18,15 @@ export const determineForgotFormContent = (step: number, setCredential:(value:st
             return <ForgotFormTwo email={email} phone={phone} />;
         case 3: 
             return <ForgotFormThree updateCode={updateCode} valid={valid} />
+        case 4:
+            return <ForgotFormFour updatePassword={updatePassword} matching={matching} />
     }
 
     return <></>
  }
 
  export const determineForgotButton = (step:number, credentials: string, searchUser: ()=> void, cancel:()=> void, sendCode: ()=>void,
-formThreeActive: boolean, checkCode:()=>void, back:()=>void): JSX.
+formThreeActive: boolean, checkCode:()=>void, back:()=>void, submitNewPassword: ()=> void, formFourActive: boolean): JSX.
  Element => {
     switch(step){
         case 1:
@@ -28,7 +34,9 @@ formThreeActive: boolean, checkCode:()=>void, back:()=>void): JSX.
         case 2:
             return <ForgotButtonTwo onCancel={cancel} sendCode={sendCode} /> 
         case 3:
-            return <ForgotButtonThree active={formThreeActive} checkCode={checkCode} back={back} />    
+            return <ForgotButtonThree active={formThreeActive} checkCode={checkCode} back={back} />
+        case 4:
+            return <ForgotButtonFour submitNewPassword={submitNewPassword} active={formFourActive} /> 
     }
 
     return <></>
