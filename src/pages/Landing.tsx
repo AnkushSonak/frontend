@@ -28,13 +28,14 @@ export const Landing:React.FC = () => {
   }
 
   const toggleForgotPassword = () => {
+    setLogin(false);
     setForgotPassword(!forgotPassword);
   }
  
   return (
     <div className="home-container bg-color">
        {register ?  <RegisterModal toggleModal = {toggleRegister} /> : <></>}
-       {login ? <LoginModal toggleModal={toggleLogin} toggleRegister={toggleRegister} /> : <></>}
+       {login ? <LoginModal toggleModal={toggleLogin} toggleRegister={toggleRegister} toggleForgot={toggleForgotPassword} /> : <></>}
        {forgotPassword ? <ForgotPasswordModal toggleModal={toggleForgotPassword} /> : <></>} 
        <div className="landing-layout">
         <div className="landing-top-left bg-blue">
