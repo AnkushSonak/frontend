@@ -2,17 +2,29 @@ import { useState } from "react"
 import { Modal } from "../../../../components/Modal/Modal"
 import { ForgotFormOne } from "../ForgotForms/ForgotFormOne"
 import { ForgotModalTop } from "../ForgotModalTop/ForgotModalTop"
-import { Password } from "@mui/icons-material"
 import { validateEmail, validatePhone } from "../../../../services/Validators"
 import axios from 'axios'
 import { ForgotButtonOne } from "../ForgotButtonOne/ForgotButtonOne"
 import { ForgotFormTwo } from "../ForgotForms/ForgotFormTwo"
+import { ForgotButtonTwo } from "../ForgotButtonTwo/ForgotButtonTwo"
+
+interface UserInfo{
+    email: string;
+    phone: string;
+    username: string;
+}
 
 export const ForgotPasswordModal:React.FC<{toggleModal: ()=>void}> = ({toggleModal}) => {
 
     const[credential, setCredential] = useState<string>('');
+    const [userInfo, setUSerInfo] = useState<UserInfo>({
+        email: '',
+        phone: '',
+        username: ''
+    })
     const[error, setError] = useState<boolean>(false);
     const [step, setStep] = useState<number>(1);
+    const [resetCode, setResetCode] = useState<number>(0);
 
     const changeCredential = (credential:string) => {
         setCredential(credential);
@@ -45,17 +57,38 @@ export const ForgotPasswordModal:React.FC<{toggleModal: ()=>void}> = ({toggleMod
         console.log("credentials: " + credential);
         try{
             setError(false);
-            let res = await axios.post('http://localhost:8000/auth/find', findUserDTO);
+            let res = await axios.post('http://localhost:8000/auth/identifiers', findUserDTO);
             let data = await res.data;
+            setUSerInfo({
+                email: data.email,
+                phone: data.phone,
+                username: data.username
+            })
             setStep(2);
         }catch(e){
             setError(true);
         }
     }
 
+    const sendReset = async() => {
+        const code = Math.floor(100000 + Math.random() * 900000);
+        setResetCode(code);
+
+        try {
+            let req =await axios.post('http://localhost:8000/auth/password/code',{
+                email: userInfo.email,
+                code
+            });
+            let res = await req.data;
+            setStep(3);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     return(<Modal
         topContent={<ForgotModalTop closeModal={toggleModal} />}
-        content={step === 1 ? <ForgotFormOne setCredential={changeCredential} error={false}  /> : <ForgotFormTwo />}
-        bottomContent={step === 1 ? <ForgotButtonOne value={credential} handleClick={searchUser} />: <>Step two button</>}
+        content={step === 1 ? <ForgotFormOne setCredential={changeCredential} error={false}  /> : <ForgotFormTwo email={userInfo.email} phone={userInfo.phone} />}
+        bottomContent={step === 1 ? <ForgotButtonOne value={credential} handleClick={searchUser} /> : <ForgotButtonTwo onCancel={toggleModal} sendCode={sendReset} />}
     />)
 }
