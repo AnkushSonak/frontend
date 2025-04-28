@@ -21,55 +21,55 @@ export const Navigation:React.FC = () => {
                 </Link>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <HomeSVG height={26} widht={26} />
+                        <HomeSVG height={26} width={26} />
                         <p className="navigation-text navigation-active">Home</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <ExploreSVG height={26} widht={26} />
+                        <ExploreSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Explore</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <NotificationSVG height={26} widht={26} />
+                        <NotificationSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Notification</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <MessagesSVG height={26} widht={26} />
+                        <MessagesSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Messages</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <ListsSVG height={26} widht={26} />
+                        <ListsSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Lists</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <CommunitiesSVG height={26} widht={26} />
+                        <CommunitiesSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Communities</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <PremiumSVG height={26} widht={26} />
+                        <PremiumSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Premium</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <ProfileSVG height={26} widht={26} />
+                        <ProfileSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Profile</p>
                     </Link>
                 </div>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">
-                        <MoreSVG height={26} widht={26} />
+                        <MoreSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">More</p>
                     </Link>
                 </div>

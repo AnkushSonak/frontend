@@ -80,6 +80,6 @@ export interface ModalButtonProps{
 
 export interface SVGProps{
     height: number;
-    widht: number;
+    width: number;
     color?: string;
 }
