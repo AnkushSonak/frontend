@@ -6,6 +6,7 @@ import {setToken} from '../redux/Slices/UserSlice';
 import { useNavigate } from "react-router-dom";
 import './Home.css';
 import { Navigation } from "../components/Navigation/Navigation";
+import { Feed } from "../features/feed/components/Feed/Feed";
 
 export const Home:React.FC = () => {
 
@@ -40,7 +41,7 @@ export const Home:React.FC = () => {
                     <Navigation />
                 </div>
                 <div className="home-content-section">
-
+                    <Feed />
                 </div>
                 <div className="home-info-section">
 
