@@ -55,6 +55,23 @@ export const VerifyUsername = createAsyncThunk(
     }
 )
 
+export const getUserByToken = createAsyncThunk(
+    'user/get',
+    async (token: string, thunkAPI) => {
+        try {
+            const req = await axios.get('http://localhost:8000/user/verify', {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            return req.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e);
+        }
+    }
+)
+
 export const UserSlice = createSlice({
     name: 'user',
     initialState,
@@ -140,6 +157,31 @@ export const UserSlice = createSlice({
         });
 
         builder.addCase(VerifyUsername.rejected,  (state, action) => {
+            state = {
+                ...state,
+                error: true
+            };
+            return state;
+        });
+
+        builder.addCase(getUserByToken.fulfilled,  (state, action) => {
+            state = {
+                ...state,
+                loggedIn: action.payload,
+                username: action.payload.username
+            };
+            return state;
+        });
+
+        builder.addCase(getUserByToken.pending,  (state, action) => {
+            state = {
+                ...state,
+                error: false
+            };
+            return state;
+        });
+
+        builder.addCase(getUserByToken.rejected,  (state, action) => {
             state = {
                 ...state,
                 error: true

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RegisterModal from '../features/register';
 import { RightSideBar, LandingFooter } from '../features/landing';
 import whiteLogo from '../assets/fwitter-logo-large-white.png';
@@ -9,6 +9,8 @@ import { AppDispatch } from '../redux/Store';
 import { useDispatch } from 'react-redux';
 import { resetUsername } from '../redux/Slices/UserSlice';
 import ForgotPasswordModal from '../features/forgotPassword';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { useNavigate } from 'react-router-dom';
 
 export const Landing:React.FC = () => {
 
@@ -17,6 +19,9 @@ export const Landing:React.FC = () => {
   const [register, setRegister] = useState<boolean>(false);
   const [login, setLogin] = useState<boolean>(false);
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
+
+  const[jwt, setJwt, removeJwt] = useLocalStorage("token", "");
+  const navigate = useNavigate();
 
   const toggleRegister = () => {
     setRegister(!register);
@@ -32,6 +37,10 @@ export const Landing:React.FC = () => {
     setForgotPassword(!forgotPassword);
   }
  
+useEffect(()=>{
+  if(jwt !== '') navigate("/home");
+}, [jwt])
+
   return (
     <div className="home-container bg-color">
        {register ?  <RegisterModal toggleModal = {toggleRegister} /> : <></>}
