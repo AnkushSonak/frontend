@@ -29,7 +29,7 @@ interface CreatePostBody{
     scheduled: boolean;
     scheduledDate: Date | undefined;
     audience: 'EVERYONE' | 'CIRCLE';
-    replyRestriction: 'EVERYONE' | 'CIRCLE' | 'MENTION';
+    replyRestriction: 'EVERYONE' | 'FOLLOW' | 'CIRCLE' | 'MENTION';
     token: string;
 }
 

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { Post } from "../../../../utils/GlobalInterfaces";
 import { createPost, initializeCurrentPost, updateCurrentPost } from "../../../../redux/Slices/PostSlice";
+import { FeedPostAudienceDropDown } from "../FeedPostAudienceDropDown/FeedPostAudienceDropDown";
 
 export const FeedPostCreator:React.FC = () => {
 
@@ -96,13 +97,7 @@ return (
             <img className="feed-post-creator-pfp" src="https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg" />
         </Link>
         <div className="feed-post-creator-right">
-            <div className={active ? "feed-post-creator-audience" : "feed-post-creator-audience hide"}>
-                Everyone
-                <ExpandMore sx ={{
-                        fontSize: '22px'
-                    }}
-                />
-            </div>
+            <FeedPostAudienceDropDown />
             <textarea
                 className={active ? "feed-post-creator-input input-active" : "feed-post-creator-input"} 
                 placeholder="What is happening?!"
