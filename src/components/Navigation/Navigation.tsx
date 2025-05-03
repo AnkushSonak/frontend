@@ -13,6 +13,7 @@ import ProfileSVG from '../SVGs/ProfileSVG';
 import MoreSVG from '../SVGs/MoreSVG';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
+import VerifiedSVG from '../SVGs/VerifiedSVG';
 
 export const Navigation:React.FC = () => {
 
@@ -58,6 +59,12 @@ export const Navigation:React.FC = () => {
                     <Link to="" className="navigation-link">
                         <CommunitiesSVG height={26} width={26} />
                         <p className="navigation-text navigation-inactive">Communities</p>
+                    </Link>
+                </div>
+                <div className="navigation-item">
+                    <Link to="" className="navigation-link">
+                        <VerifiedSVG height={26} width={26} />
+                        <p className="navigation-text navigation-inactive">Verified</p>
                     </Link>
                 </div>
                 <div className="navigation-item">

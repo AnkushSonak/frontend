@@ -3,7 +3,7 @@ import { Post, User } from "../../utils/GlobalInterfaces";
 import { Schedule } from "@mui/icons-material";
 import axios from 'axios'
 
-interface PostSliceState{
+export interface PostSliceState{
     loading: boolean;
     error: boolean;
     currentPost: Post | undefined;
