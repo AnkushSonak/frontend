@@ -15,6 +15,7 @@ import { AppDispatch, RootState } from "../../../../redux/Store";
 import { Post } from "../../../../utils/GlobalInterfaces";
 import { createPost, initializeCurrentPost, updateCurrentPost } from "../../../../redux/Slices/PostSlice";
 import { FeedPostAudienceDropDown } from "../FeedPostAudienceDropDown/FeedPostAudienceDropDown";
+import { FeedPostReplyRestrictionDropDown } from "../FeedPostReplyRestrictionDropDown/FeedPostReplyRestrictionDropDown";
 
 export const FeedPostCreator:React.FC = () => {
 
@@ -106,10 +107,7 @@ return (
                 cols={50}
                 maxLength={256} 
                 />
-            <div className={active ? "feed-post-creator-reply" : "feed-post-creator-reply hide"}>
-                <GlobeSVG height={14} width={14} color={"#1DA1F2"} />
-                Everyone Can Reply
-            </div>
+            <FeedPostReplyRestrictionDropDown />
             <div className={active ? "feed-post-creator-bottom-icons icons-border" : "feed-post-creator-bottom-icons"}>
                 <div className="feed-post-creator-icons-left">
                     <div className="feed-post-creator-icon-bg">
