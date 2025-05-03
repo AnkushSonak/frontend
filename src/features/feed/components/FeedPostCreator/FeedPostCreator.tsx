@@ -19,7 +19,10 @@ import { FeedPostReplyRestrictionDropDown } from "../FeedPostReplyRestrictionDro
 
 export const FeedPostCreator:React.FC = () => {
 
-    const state = useSelector((state:RootState) => state);
+    // const state = useSelector((state:RootState) => state);
+    const user = useSelector((state: RootState) => state.user);
+    const posts = useSelector((state: RootState) => state.post);
+
     const dispatch:AppDispatch = useDispatch();
     
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -30,11 +33,11 @@ export const FeedPostCreator:React.FC = () => {
     const activate = () =>{
         if(!active){
             setActive(true);
-            if(state.user.loggedIn){
+            if(user.loggedIn){
                 let p:Post ={
                     postId: 0,
                     content: "",
-                    author: state.user.loggedIn,
+                    author: user.loggedIn,
                     likes: 0,
                     images: [],
                     reposts: 0,
@@ -65,16 +68,16 @@ export const FeedPostCreator:React.FC = () => {
     }
 
     const submitPost = () => {
-        if(state.post.currentPost && state.user.loggedIn){
+        if(posts.currentPost && user.loggedIn){
             let body = {
-                content: state.post.currentPost.content,
-                author: state.post.currentPost.author,
+                content: posts.currentPost.content,
+                author: posts.currentPost.author,
                 replies: [],
-                scheduled: state.post.currentPost.Scheduled,
-                scheduledDate: state.post.currentPost.scheduledDate,
-                audience: state.post.currentPost.audience,
-                replyRestriction: state.post.currentPost.replyRestriction,
-                token: state.user.token
+                scheduled: posts.currentPost.Scheduled,
+                scheduledDate: posts.currentPost.scheduledDate,
+                audience: posts.currentPost.audience,
+                replyRestriction: posts.currentPost.replyRestriction,
+                token: user.token
             }
             dispatch(createPost(body))
         }
@@ -87,10 +90,10 @@ export const FeedPostCreator:React.FC = () => {
     }
 
     useEffect(() => {
-        if(!state.post.currentPost){
+        if(!posts.currentPost){
             setPostContent("");
         }
-    }, [state.post.currentPost, postContent, activate]);
+    }, [posts.currentPost, postContent, activate]);
 
 return (
     <div className="feed-post-creator" onClick={activate}>
@@ -98,7 +101,7 @@ return (
             <img className="feed-post-creator-pfp" src="https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg" />
         </Link>
         <div className="feed-post-creator-right">
-            <FeedPostAudienceDropDown />
+            {active ? <FeedPostAudienceDropDown /> : <></>}
             <textarea
                 className={active ? "feed-post-creator-input input-active" : "feed-post-creator-input"} 
                 placeholder="What is happening?!"
@@ -107,7 +110,7 @@ return (
                 cols={50}
                 maxLength={256} 
                 />
-            <FeedPostReplyRestrictionDropDown />
+            {active ? <FeedPostReplyRestrictionDropDown /> : <></>}
             <div className={active ? "feed-post-creator-bottom-icons icons-border" : "feed-post-creator-bottom-icons"}>
                 <div className="feed-post-creator-icons-left">
                     <div className="feed-post-creator-icon-bg">

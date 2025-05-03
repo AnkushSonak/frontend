@@ -16,21 +16,28 @@ export const Home:React.FC = () => {
 
     const [jwt, setJwt, removeJwt] = useLocalStorage("token", "");
 
+    // Update local JWT from state.token if needed
     useEffect(() => {
-        if (jwt !== '' && state.token !== '') {
-            dispatch(
-                getUserByToken(state.token)
-            );
-        } else if (jwt === '' && state.token !== '') {
+        if (jwt === '' && state.token !== '') {
             setJwt(state.token);
-        } else if (jwt !== '' && state.token !== '') {
-            dispatch(
-                setToken(jwt)
-            );
-        } else {
-            navigate("/");
         }
     }, [state.token]);
+
+    // When jwt is available, dispatch setToken or getUserByToken
+    useEffect(() => {
+        if (jwt !== '') {
+            dispatch(setToken(jwt)); // if needed
+            dispatch(getUserByToken(jwt));
+        }
+    }, [jwt]);
+
+    // Redirect if both are missing
+    useEffect(() => {
+        if (jwt === '' && state.token === '') {
+            navigate("/");
+        }
+    }, [jwt, state.token]);
+
 
     return (
         <div className="home">
