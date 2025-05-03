@@ -6,6 +6,8 @@ import GlobeSVG from "../../../../components/SVGs/GlobeSVG";
 import CirclesSVG from "../../../../components/SVGs/CirclesSVG";
 import { updateCurrentPost } from "../../../../redux/Slices/PostSlice";
 
+import './FeedPostAudienceDropDown.css'
+
 export const FeedPostAudienceDropDown:React.FC = () => {
     const state = useSelector((state: RootState) => state);
     const dispatch:AppDispatch = useDispatch();
@@ -30,43 +32,43 @@ export const FeedPostAudienceDropDown:React.FC = () => {
     }
 
     return (
-        <div className={selection === "Everyone" ? "feed-post-creator-audience eveyone" : "feed-post-creator-audience circle"} onClick={() => { }}>
+        <div className={selection === "Everyone" ? "feed-post-creator-audience eveyone" : "feed-post-creator-audience circle"} onClick={handleClick}>
             {selection}
             <ExpandMore sx={{
                 fontSize: '22px'
             }}
             />
-            <div className="feed-post-creator-audience-dropdown " style= {{
+            <div className="feed-post-creator-audience-dropdown" style= {{
                 display: active ? "block" : "none"
             }}>
                 <h2 className="feed-post-creator-audience-dropdown-title">Choose audience</h2>
-                <div id = "Everyone" className="feed-post-creator-audience-dropdown-choice" onClick={()=>{}}>
+                <div id = "Everyone" className="feed-post-creator-audience-dropdown-choice" onClick={handleChangeSelection}>
                     <div className="feed-post-creator-audience-dropdown-choice-left">
                         <div className="feed-post-creator-audience-dropdown-choice-everyone-bg">
                             <GlobeSVG height={20} width={20} color={"#FFF"} />
-                            <p className="feed-post-creator-audience-dropdown-choice-text">
-                                Everyone
-                            </p>
                         </div>
+                        <p className="feed-post-creator-audience-dropdown-choice-text">
+                            Everyone
+                        </p>
                     </div>
                     {selection === 'Everyone' ? <Check sx={{
                         color: "#1DA1F2",
                         fontSize: "18px"
                     }} /> : <></>}
                 </div>
-                <div id = "Circle" className="feed-post-creator-audience-dropdown-choice" onClick={()=>{}}>
+                <div id = "Circle" className="feed-post-creator-audience-dropdown-choice" onClick={handleChangeSelection}>
                     <div className="feed-post-creator-audience-dropdown-choice-left">
                         <div className="feed-post-creator-audience-dropdown-choice-circle-bg">
                             <CirclesSVG height={20} width={20} color={"#FFF"} />
-                            <div className="feed-post-creator-audience-choice-circle-group">
-                                <p className="feed-post-creator-audience-dropdown-choice-text">
-                                    Circle
-                                </p>
-                                <div className="feed-post-creator-audience-dropdown-circle group">
-                                    <p className="feed-post-creator-audience-dropdown-circle-info-amount">0</p>
-                                    <p className="feed-post-creator-audience-dropdown-circle-info-people">People</p>
-                                    <p className="feed-post-creator-audience-dropdown-circle-info-people">Edit</p>
-                                </div>
+                        </div>
+                        <div className="feed-post-creator-audience-dropdown-choice-circle-group">
+                            <p className="feed-post-creator-audience-dropdown-choice-text">
+                                Circle
+                            </p>
+                            <div className="feed-post-creator-audience-dropdown-circle-info">
+                                <p className="feed-post-creator-audience-dropdown-circle-info-amount">0</p>
+                                <p className="feed-post-creator-audience-dropdown-circle-people">People</p>
+                                <p className="feed-post-creator-audience-dropdown-circle-info-edit">Edit</p>
                             </div>
                         </div>
                     </div>
