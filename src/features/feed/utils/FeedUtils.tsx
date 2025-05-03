@@ -22,7 +22,7 @@ export function getReplyDropDownButton(state: PostSliceState, callback:() => voi
             )
         case 'CIRCLE' :
             return (
-                <div className="feed-post-reply-restriction-drop-down-button-disabled" onClick={callback}>
+                <div className="feed-post-reply-restriction-drop-down-button-disabled">
                     <LockSVG height={14} width={14} color={"rgba(29, 161, 242, .5)"} />
                     Only your Fwitter Circle can reply
                 </div>

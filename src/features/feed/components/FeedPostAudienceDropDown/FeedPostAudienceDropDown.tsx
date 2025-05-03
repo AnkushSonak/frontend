@@ -9,7 +9,6 @@ import { updateCurrentPost } from "../../../../redux/Slices/PostSlice";
 import './FeedPostAudienceDropDown.css'
 
 export const FeedPostAudienceDropDown:React.FC = () => {
-    const state = useSelector((state: RootState) => state);
     const dispatch:AppDispatch = useDispatch();
 
     const [active, setActive] = useState<boolean>(false);

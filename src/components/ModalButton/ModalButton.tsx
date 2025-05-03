@@ -20,7 +20,7 @@ export const ModalButton = styled.button<ModalButtonProps>`
     font-size: ${(props) => `${props.fontSize}px`};
     &:hover{
     cursor: ${(props) => props.active ? 'pointer' : 'auto'};
-    backgrond-color: ${(props) => props.active ?
+    background-color: ${(props) => props.active ?
         `rgba(${props.hoverBackground.r}, ${props.hoverBackground.g}, ${props.hoverBackground.b}, ${props.hoverBackground.a})` : props.backgroundColor};
     border: ${(props) => props.hoverBorder && props.active ? `solid 1px rgba(${props.hoverBorder.r}, ${props.hoverBorder.g}, ${props.hoverBorder.b}, ${props.hoverBorder.a})` : 'none'};
     }
