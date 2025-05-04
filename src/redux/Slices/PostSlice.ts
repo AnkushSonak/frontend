@@ -8,6 +8,7 @@ export interface PostSliceState{
     error: boolean;
     currentPost: Post | undefined;
     posts: Post[];
+    currentPostImages: string[];
 }
 
 interface updatePostPayload{
@@ -19,7 +20,8 @@ const initialState:PostSliceState = {
     loading: false,
     error: false,
     currentPost: undefined,
-    posts: []
+    posts: [],
+    currentPostImages: []
 }
 
 interface CreatePostBody{
@@ -83,6 +85,14 @@ export const PostSlice = createSlice({
                 }
             }
             return state;
+        },
+
+        updateCurrentPostImages(state, action:PayloadAction<string[]>){
+            state = {
+                ...state,
+                currentPostImages: action.payload
+            }
+            return state;
         }
     },
     extraReducers: (builder) => {
@@ -120,6 +130,6 @@ export const PostSlice = createSlice({
     }
 })
 
-export const {initializeCurrentPost, updateCurrentPost} = PostSlice.actions;
+export const {initializeCurrentPost, updateCurrentPost, updateCurrentPostImages} = PostSlice.actions;
 
 export default PostSlice.reducer;
