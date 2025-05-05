@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 import './Home.css';
 import { Navigation } from "../components/Navigation/Navigation";
 import { Feed } from "../features/feed/components/Feed/Feed";
+import { FeedPostCreatorEditImageModal } from "../features/feed/components/FeedPostCreatorEditImageModal/FeedPostCreatorEditImageModal";
 
 export const Home:React.FC = () => {
 
     const state = useSelector((state: RootState) => state.user);
+    const displayEditImageModal = useSelector((state:RootState) => state.modal);
     const dispatch:AppDispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -41,6 +43,7 @@ export const Home:React.FC = () => {
 
     return (
         <div className="home">
+            {displayEditImageModal && <FeedPostCreatorEditImageModal />}
             <div className="home-layout">
                 <div className="home-navigation-section">
                     <Navigation />
