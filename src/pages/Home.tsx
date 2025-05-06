@@ -8,11 +8,13 @@ import './Home.css';
 import { Navigation } from "../components/Navigation/Navigation";
 import { Feed } from "../features/feed/components/Feed/Feed";
 import { FeedPostCreatorEditImageModal } from "../features/feed/components/FeedPostCreatorEditImageModal/FeedPostCreatorEditImageModal";
+import { FeedPostCreatorTagPeopleModal } from "../features/feed/components/FeedPostCreatorTagPeopleModal/FeedPostCreatorTagPeopleModal";
 
 export const Home:React.FC = () => {
 
     const state = useSelector((state: RootState) => state.user);
-    const displayEditImageModal = useSelector((state:RootState) => state.modal);
+    const displayEditImageModal = useSelector((state:RootState) => state.modal.displayEditPostImage);
+    const displayTagPeopleModal = useSelector((state:RootState) => state.modal.displayTagPeople);
     const dispatch:AppDispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -44,6 +46,7 @@ export const Home:React.FC = () => {
     return (
         <div className="home">
             {displayEditImageModal && <FeedPostCreatorEditImageModal />}
+            {displayTagPeopleModal && <FeedPostCreatorTagPeopleModal />}
             <div className="home-layout">
                 <div className="home-navigation-section">
                     <Navigation />
