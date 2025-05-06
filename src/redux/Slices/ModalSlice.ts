@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface ModlaSliceState{
     displayEditPostImage: boolean;
+    displayTagPeople: boolean;
 }
 
 const initialState: ModlaSliceState = {
-    displayEditPostImage: false
+    displayEditPostImage: false,
+    displayTagPeople: false
 }
 
 export const ModlaSlice = createSlice({
@@ -19,10 +21,17 @@ export const ModlaSlice = createSlice({
             }
 
             return state;
+        },
+
+        updateDisplayTagPeople(state){
+            state = {
+                ...state,
+                displayTagPeople: !state.displayTagPeople
+            }
         }
     }
 });
 
-export const {updateDisplayEditPostImage} = ModlaSlice.actions;
+export const {updateDisplayEditPostImage, updateDisplayTagPeople} = ModlaSlice.actions;
 
 export default ModlaSlice.reducer;
