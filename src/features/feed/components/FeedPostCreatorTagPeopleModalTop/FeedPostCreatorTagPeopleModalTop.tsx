@@ -1,5 +1,5 @@
 import React from 'react';
-import './FeedPostCreatorTagPeopleModalTop';
+import './FeedPostCreatorTagPeopleModalTop.css';
 import { Close } from '@mui/icons-material';
 import { AppDispatch } from '../../../../redux/Store';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import {updateDisplayTagPeople} from '../../../../redux/Slices/ModalSlice';
 export const FeedPostCreatorTagPeopleModalTop:React.FC = () => {
 
     const dispatch:AppDispatch = useDispatch();
-    
+
     const closeModal = () => {
         dispatch(updateDisplayTagPeople());
     }

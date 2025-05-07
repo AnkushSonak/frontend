@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../utils/GlobalInterfaces";
 import axios from 'axios'
-import { AcUnit, Email } from "@mui/icons-material";
-import { StringLiteral } from "typescript";
 
 interface USerSliceState{
     loggedIn: User | undefined;

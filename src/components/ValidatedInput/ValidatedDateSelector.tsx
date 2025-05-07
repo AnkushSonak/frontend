@@ -1,8 +1,8 @@
 import React, { JSX, useEffect, useState } from "react";
 import { StyledInputBox, StyledInputLabel } from "./StyledInput"
-import { determineLabelColor, determineValidatedSelectStyle } from "../../utils/DetermineStylesUtil";
+import { determineValidatedSelectStyle } from "../../utils/DetermineStylesUtil";
 import './ValidatedInput.css'
-import { ExpandMore, ExpandMoreRounded } from "@mui/icons-material";
+import { ExpandMoreRounded } from "@mui/icons-material";
 
 interface ValidatedDateSelectorProps{
     style: string;

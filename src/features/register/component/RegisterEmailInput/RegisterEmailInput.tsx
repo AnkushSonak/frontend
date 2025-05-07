@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ValidatedTextInput } from '../../../../components/ValidatedInput/ValidatedTextInput';
-import { useDispatch, UseDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../redux/Store';
 import { updateRegister } from '../../../../redux/Slices/RegisterSlice';
 import { validateEmail } from '../../../../services/Validators';
