@@ -8,11 +8,11 @@ import {validateDob} from '../../../../services/Validators'
 import { Dob } from '../../../../utils/GlobalInterfaces';
 import './RegisterDateInput.css'
 
-interface RegisterDateInput{
+interface RegisterDateInputProps{
     date: Dob;
 }
 
-export const RegisterDateInput:React.FC<RegisterDateInput> = ({date}) => {
+export const RegisterDateInput:React.FC<RegisterDateInputProps> = ({date}) => {
 
     const state = useSelector((state: RootState) => state.register);
 

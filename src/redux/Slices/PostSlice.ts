@@ -1,27 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post, User } from "../../utils/GlobalInterfaces";
-import { Schedule } from "@mui/icons-material";
 import axios from 'axios'
+import FormData from 'form-data';
+import { Schedule } from "@mui/icons-material";
 
 export interface PostSliceState{
     loading: boolean;
     error: boolean;
     currentPost: Post | undefined;
     posts: Post[];
-    currentPostImages: string[];
+    currentPostImages: File[];
 }
 
 interface updatePostPayload{
     name: string;
     value: string | number | boolean     
-}
-
-const initialState:PostSliceState = {
-    loading: false,
-    error: false,
-    currentPost: undefined,
-    posts: [],
-    currentPostImages: []
 }
 
 interface CreatePostBody{
@@ -33,6 +26,18 @@ interface CreatePostBody{
     audience: 'EVERYONE' | 'CIRCLE';
     replyRestriction: 'EVERYONE' | 'FOLLOW' | 'CIRCLE' | 'MENTION';
     token: string;
+}
+
+ interface CreatePostWithMediaBody extends CreatePostBody{
+    images: File[];
+ }
+
+const initialState:PostSliceState = {
+    loading: false,
+    error: false,
+    currentPost: undefined,
+    posts: [],
+    currentPostImages: []
 }
 
 export const createPost = createAsyncThunk(
@@ -57,6 +62,50 @@ export const createPost = createAsyncThunk(
             return req.data;
         } catch (e) {
             thunkAPI.rejectWithValue(e);
+        }
+    }
+)
+
+export const createPostWithMedia = createAsyncThunk(
+    'post/create-media',
+    async(body: CreatePostWithMediaBody, thunkAPI) => {
+        try {
+            const images = body.images;
+
+            let data = new FormData();
+
+            let post = {
+                content: body.content,
+                author: body.author,
+                replies: body.replies,
+                scheduled: body.scheduled,
+                scheduledDate: body.scheduledDate,
+                audience: body.audience,
+                replyRestriction: body.replyRestriction
+            }
+
+            data.append('post', JSON.stringify(post));
+
+            images.forEach(image => {
+                data.append('media', image);
+            });
+
+            let config =  {
+                method: 'post',
+                url: 'http://localhost:8000/posts/media',
+                headers: {
+                    'Authorization': `Bearer ${body.token}`,
+                    'ContentType': 'multipart/form-data'
+                },
+                data
+            }
+
+            let res = await axios(config);
+
+            return res.data;
+
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e);
         }
     }
 )
@@ -87,7 +136,7 @@ export const PostSlice = createSlice({
             return state;
         },
 
-        updateCurrentPostImages(state, action:PayloadAction<string[]>){
+        updateCurrentPostImages(state, action:PayloadAction<File[]>){
             state = {
                 ...state,
                 currentPostImages: action.payload
@@ -97,6 +146,15 @@ export const PostSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(createPost.pending, (state, action) => {
+            state = {
+                ...state,
+                loading: true
+            }
+
+            return state;
+        });
+
+        builder.addCase(createPostWithMedia.pending, (state, action) => {
             state = {
                 ...state,
                 loading: true
@@ -118,7 +176,30 @@ export const PostSlice = createSlice({
             return state;
         });
 
+        builder.addCase(createPostWithMedia.fulfilled, (state, action) => {
+            let post: Post = action.payload;
+
+            state = {
+                ...state,
+                posts: [post, ...state.posts],
+                loading: false,
+                error: false,
+                currentPost: undefined,
+                currentPostImages: []
+            }
+            return state;
+        });
+
         builder.addCase(createPost.rejected, (state, action) => {
+
+            state = {
+                ...state,
+                error: true
+            }
+            return state;
+        });
+
+        builder.addCase(createPostWithMedia.rejected, (state, action) => {
 
             state = {
                 ...state,

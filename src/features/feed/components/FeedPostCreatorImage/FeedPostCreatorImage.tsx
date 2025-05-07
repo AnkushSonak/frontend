@@ -23,7 +23,7 @@ export const FeedPostCreatorImage:React.FC<FeedPostCreatorImageProps> = ({image}
         dispatch(updateCurrentPostImages(imageArrayCopy));
     }
 
-    const editImage = () => {
+    const editImage =() => {
         dispatch(updateDisplayEditPostImage());
     }
 

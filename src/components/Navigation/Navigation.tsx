@@ -23,7 +23,7 @@ export const Navigation:React.FC = () => {
         <div className="navigation">
             <nav className='navigation-container'>
                 <Link to="/home" className="navigation-logo-bg">
-                    <img className="navigation-logo" src={blueLogo}  />
+                    <img className="navigation-logo" src={blueLogo} alt="navigation-logo" />
                 </Link>
                 <div className="navigation-item">
                     <Link to="" className="navigation-link">

@@ -1,4 +1,3 @@
-import { Label } from "@mui/icons-material";
 import { StyledInputprops, ValidateInputState } from "./GlobalInterfaces";
 
 export const determineStyledInputBorder = (props:StyledInputprops) => {

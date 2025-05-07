@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import { Modal } from '../../../../components/Modal/Modal'
 import { RegisterationStepCounter } from '../RegisterStepCounter/RegistrationStepCounter' 
 import { determineModalContent } from '../../utils/RegisterModalUtils'

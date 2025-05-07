@@ -1,7 +1,7 @@
 import { Check, ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../redux/Store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../redux/Store";
 import GlobeSVG from "../../../../components/SVGs/GlobeSVG";
 import CirclesSVG from "../../../../components/SVGs/CirclesSVG";
 import { updateCurrentPost } from "../../../../redux/Slices/PostSlice";

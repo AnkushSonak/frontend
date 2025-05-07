@@ -1,7 +1,5 @@
-import { ExpandMore, Schedule } from "@mui/icons-material";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import GlobeSVG from "../../../../components/SVGs/GlobeSVG";
 import MediaSVG from "../../../../components/SVGs/MediaSVG";
 import GifSVG from "../../../../components/SVGs/GifSVG";
 import PollSVG from "../../../../components/SVGs/PollSVG";
@@ -13,7 +11,7 @@ import { FeedPostCreatorProgress } from "../FeedPostCreatorProgress/FeedPostCrea
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { Post } from "../../../../utils/GlobalInterfaces";
-import { createPost, initializeCurrentPost, updateCurrentPost, updateCurrentPostImages } from "../../../../redux/Slices/PostSlice";
+import { createPost, createPostWithMedia, initializeCurrentPost, updateCurrentPost, updateCurrentPostImages } from "../../../../redux/Slices/PostSlice";
 import { FeedPostAudienceDropDown } from "../FeedPostAudienceDropDown/FeedPostAudienceDropDown";
 import { FeedPostReplyRestrictionDropDown } from "../FeedPostReplyRestrictionDropDown/FeedPostReplyRestrictionDropDown";
 import { FeedPostCreatorImages } from "../FeedPostCreatorImages/FeedPostCreatorImages";
@@ -72,20 +70,37 @@ export const FeedPostCreator:React.FC = () => {
 
     const submitPost = () => {
         if(posts.currentPost && user.loggedIn){
-            let body = {
-                content: posts.currentPost.content,
-                author: posts.currentPost.author,
-                replies: [],
-                scheduled: posts.currentPost.Scheduled,
-                scheduledDate: posts.currentPost.scheduledDate,
-                audience: posts.currentPost.audience,
-                replyRestriction: posts.currentPost.replyRestriction,
-                token: user.token
+            if(posts.currentPostImages.length === 0){
+                let body = {
+                    content: posts.currentPost.content,
+                    author: posts.currentPost.author,
+                    replies: [],
+                    scheduled: posts.currentPost.Scheduled,
+                    scheduledDate: posts.currentPost.scheduledDate,
+                    audience: posts.currentPost.audience,
+                    replyRestriction: posts.currentPost.replyRestriction,
+                    token: user.token
+                }
+                dispatch(createPost(body))
+            }else{
+                let body = {
+                    content: posts.currentPost.content,
+                    author: posts.currentPost.author,
+                    replies: [],
+                    scheduled: posts.currentPost.Scheduled,
+                    scheduledDate: posts.currentPost.scheduledDate,
+                    audience: posts.currentPost.audience,
+                    replyRestriction: posts.currentPost.replyRestriction,
+                    token: user.token,
+                    images: posts.currentPostImages
+                }
+                dispatch(createPostWithMedia(body));
             }
-            dispatch(createPost(body))
         }
 
         setActive(false);
+        setPostContent("");
+
         if(textAreaRef && textAreaRef.current){
             textAreaRef.current.blur();
             textAreaRef.current.value =""   
@@ -116,7 +131,7 @@ export const FeedPostCreator:React.FC = () => {
                 const localImageUrl = window.URL.createObjectURL(e.target.files[i]);
                 imageURLList.push(localImageUrl);
             }
-            dispatch(updateCurrentPostImages(imageURLList));
+            // dispatch(updateCurrentPostImages(imageURLList));
         }
     }
 
