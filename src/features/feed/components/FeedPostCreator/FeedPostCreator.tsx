@@ -108,33 +108,51 @@ export const FeedPostCreator:React.FC = () => {
     }
 
     const handleGetImages = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const imageList = posts.currentPostImages;
+        setOverloadedImages(false);
         const imageURLList:string[] = [];
 
         if(imageSelectorRef.current && e.target.files){
-            if(e.target.files.length > 4){
+            if(e.target.files.length + imageList.length > 4){
                 console.log("Selected too many files");
                 imageSelectorRef.current.value ='';
                 setOverloadedImages(true);
                 return;
             }
 
+            if(imageList[0].type === 'image/gif'){
+                console.log("only one gif and no other images allowed");
+                imageSelectorRef.current.value = '';
+                setOverloadedImages(true);
+                return;
+            }
+
+            let fileArr:File[] = [...imageList];
+
             for(let i =0; i<e.target.files.length; i++){
                 let file =e.target.files.item(i);
 
-                if(file?.type ==='image/gif' && e.target.files.length > 1){
+                if(file?.type ==='image/gif' && imageList.length >= 1 || file?.type === 'image/gif' && e.target.files.length > 1){
                     console.log("only one gif and no other images allowed.");
                     imageSelectorRef.current.value ='';
                     setOverloadedImages(true);
                     return;
                 }
 
-                const localImageUrl = window.URL.createObjectURL(e.target.files[i]);
-                imageURLList.push(localImageUrl);
+                if(file) fileArr.push(file);
             }
             // dispatch(updateCurrentPostImages(imageURLList));
         }
     }
 
+    const determineFull = ():boolean => {
+        if(posts.currentPostImages.length === 4) return true;
+
+        if(posts.currentPostImages[0]?.type === 'image/gif') return true;
+
+        return false;
+    }
+    
     useEffect(() => {
         if(!posts.currentPost){
             setPostContent("");
@@ -156,22 +174,22 @@ return (
                 cols={50}
                 maxLength={256} 
                 />
-                <FeedPostCreatorImages />
+                {posts.currentPostImages.length > 0 && <FeedPostCreatorImages />}
             {active ? <FeedPostReplyRestrictionDropDown /> : <></>}
             <div className={active ? "feed-post-creator-bottom-icons icons-border" : "feed-post-creator-bottom-icons"}>
                 <div className="feed-post-creator-icons-left">
                     <div className="feed-post-creator-icon-bg-media">
                         <input className="feed-post-creator-file-update" onChange={handleGetImages} type="file" id="images" accept="image/**" multiple={true}
-                            ref={imageSelectorRef} hidden />
-                        <label htmlFor="images" className="feed-post-creator-icon-bg">
-                            <MediaSVG height={20} width={20} color={"#1DA1F2"} />
+                            ref={imageSelectorRef} hidden disabled={determineFull()}/>
+                        <label htmlFor="images" className={determineFull() ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"}>
+                            <MediaSVG height={20} width={20} color={determineFull() ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                         </label>
                     </div>
-                    <div className="feed-post-creator-icon-bg">
-                        <GifSVG height={20} width={20} color={"#1DA1F2"} />
+                    <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"}>
+                        <GifSVG height={20} width={20} color={posts.currentPostImages.length > 0 ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                     </div>
-                    <div className="feed-post-creator-icon-bg">
-                        <PollSVG height={20} width={20} color={"#1DA1F2"} />
+                    <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"}>
+                        <PollSVG height={20} width={20} color={posts.currentPostImages.length > 0 ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                     </div>
                     <div className="feed-post-creator-icon-bg">
                         <EmojiSVG height={20} width={20} color={"#1DA1F2"} />
@@ -196,8 +214,8 @@ return (
 
                     }
                     <button
-                        className={postContent === '' ? "feed-post-creator-post-button" : "feed-post-creator-post-button post-active"}
-                        disabled={postContent === ''}
+                        className={postContent === '' && posts.currentPostImages.length < 1 ? "feed-post-creator-post-button" : "feed-post-creator-post-button post-active"}
+                        disabled={postContent === '' && posts.currentPostImages.length < 1}
                         onClick={submitPost}
                     >
                         Post
