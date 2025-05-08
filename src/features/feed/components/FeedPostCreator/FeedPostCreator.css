@@ -117,7 +117,7 @@
     border-radius: 100%;
 }
 
-.feed-post-creator-icon-bg:hover{
+.icon-active:hover{
     cursor: pointer;
     background-color: rgba(29, 161, 241, .1);
 }
