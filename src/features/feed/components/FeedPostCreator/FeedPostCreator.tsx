@@ -15,6 +15,7 @@ import { createPost, createPostWithMedia, initializeCurrentPost, updateCurrentPo
 import { FeedPostAudienceDropDown } from "../FeedPostAudienceDropDown/FeedPostAudienceDropDown";
 import { FeedPostReplyRestrictionDropDown } from "../FeedPostReplyRestrictionDropDown/FeedPostReplyRestrictionDropDown";
 import { FeedPostCreatorImages } from "../FeedPostCreatorImages/FeedPostCreatorImages";
+import { updateDisplayGif } from "../../../../redux/Slices/ModalSlice";
 
 export const FeedPostCreator:React.FC = () => {
 
@@ -120,7 +121,7 @@ export const FeedPostCreator:React.FC = () => {
                 return;
             }
 
-            if(imageList[0].type === 'image/gif'){
+            if(imageList[0]?.type === 'image/gif'){
                 console.log("only one gif and no other images allowed");
                 imageSelectorRef.current.value = '';
                 setOverloadedImages(true);
@@ -152,7 +153,10 @@ export const FeedPostCreator:React.FC = () => {
 
         return false;
     }
-    
+    const displayGif = () => {
+        dispatch(updateDisplayGif());
+    }
+
     useEffect(() => {
         if(!posts.currentPost){
             setPostContent("");
@@ -185,7 +189,7 @@ return (
                             <MediaSVG height={20} width={20} color={determineFull() ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                         </label>
                     </div>
-                    <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"}>
+                    <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"} onClick={displayGif}>
                         <GifSVG height={20} width={20} color={posts.currentPostImages.length > 0 ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                     </div>
                     <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"}>
