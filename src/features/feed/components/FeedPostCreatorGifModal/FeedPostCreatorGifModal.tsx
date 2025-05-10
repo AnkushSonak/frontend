@@ -4,6 +4,7 @@ import { FeedPostCreatorGifModalTop } from "../FeedPostCreatorGifModalTop/FeedPo
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { fetchGifCategories, updatePreview, updateSearchTerms } from "../../../../redux/Slices/GifSlice";
+import { FeedPostCreatorGifModalPreview } from "../FeedPostCreatorGifModalPreview/FeedPostCreatorGifModalPreview";
 
 export const FeedPostCreatorGifModal: React.FC = () =>{
 
@@ -30,7 +31,11 @@ export const FeedPostCreatorGifModal: React.FC = () =>{
     return (
         <BottomlessModal
             topBar={<FeedPostCreatorGifModalTop />}
-            content={<>Content</>}
+            content={
+                state.preview || state.gifs.length === 0 ?
+                    <FeedPostCreatorGifModalPreview categories={state.gifCatergories} /> :
+                    <></>
+            }
         />
     )
 }

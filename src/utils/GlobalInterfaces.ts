@@ -113,5 +113,5 @@ export interface TenorCategories{
     image: string;
     name: string;
     path: string;
-    searchTerm: string;
+    searchterm: string; //ATTENTION:: it must be lower case "searchterm" 
 }
