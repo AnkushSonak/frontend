@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../redux/Store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../../../redux/Store';
+import { fetchGifsByTerm } from '../../../../redux/Slices/GifSlice';
 
 interface FrozenGifProps{
     image: string;
@@ -9,6 +10,8 @@ interface FrozenGifProps{
 
 export const FeedPostCreatorFrozenGif: React.FC<FrozenGifProps> = ({image, text}) => {
     const preview = useSelector((state: RootState) => state.gif.preview);
+    const dispatch:AppDispatch = useDispatch();
+
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const imageRef = useRef<HTMLImageElement>(null);
 
@@ -34,6 +37,7 @@ export const FeedPostCreatorFrozenGif: React.FC<FrozenGifProps> = ({image, text}
 
     const handleCanvasClicked = () => {
         //TODO once we have it setup 
+        if(preview) dispatch(fetchGifsByTerm(text));
     }
 
     return (

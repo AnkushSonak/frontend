@@ -45,6 +45,24 @@ export const fetchGifCategories = createAsyncThunk(
     }
 )
 
+export const fetchGifsByTerm = createAsyncThunk(
+    'gif/term',
+    async(payload:string, thunkAPI) => {
+        try {
+            let clientKey = "fwitter";
+            let searchUrl = `https://tenor.googleapis.com/v2/search?q=${payload}&key=${TENOR_KEY}&client_key=${clientKey}&limit=32`;
+            let res = await axios.get(searchUrl);
+
+            return{
+                data: res.data,
+                term: payload
+            }
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e);
+        }
+    }
+)
+
 export const GifSlice = createSlice({
     name: "gif",
     initialState,
@@ -82,6 +100,26 @@ export const GifSlice = createSlice({
                 ...state, 
                 loading: false,
                 gifCatergories: action.payload
+            }
+
+            return state;
+        });
+
+        builder.addCase(fetchGifsByTerm.fulfilled, (state, action) => {
+            let results = action.payload.data.results;
+
+            let gifUrls:string[] = [];
+
+            results.forEach((item:any) => {
+                gifUrls.push(item.media_formats.gif.url);
+            });
+
+            state = {
+                ...state, 
+                searchTerm: action.payload.term,
+                gifs: gifUrls,
+                next: action.payload.data.next,
+                loading: false
             }
 
             return state;

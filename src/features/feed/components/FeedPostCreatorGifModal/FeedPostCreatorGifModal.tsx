@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { fetchGifCategories, updatePreview, updateSearchTerms } from "../../../../redux/Slices/GifSlice";
 import { FeedPostCreatorGifModalPreview } from "../FeedPostCreatorGifModalPreview/FeedPostCreatorGifModalPreview";
+import { FeedPostCreatorGifModalDisplay } from "../FeedPostCreatorGifModalDisplay/FeedPostCreatorGifModalDisplay";
 
 export const FeedPostCreatorGifModal: React.FC = () =>{
 
@@ -34,7 +35,7 @@ export const FeedPostCreatorGifModal: React.FC = () =>{
             content={
                 state.preview || state.gifs.length === 0 ?
                     <FeedPostCreatorGifModalPreview categories={state.gifCatergories} /> :
-                    <></>
+                    <FeedPostCreatorGifModalDisplay gifs={state.gifs} />
             }
         />
     )
