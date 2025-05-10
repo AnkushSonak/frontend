@@ -38,7 +38,7 @@
 
 .input-wrapper-active{
     border: solid 1px #1DA1F2;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .feed-post-creator-gif-modal-search{
@@ -48,7 +48,6 @@
     justify-content: center;
     align-items: center;
 }
-
 
 .feed-post-creator-gif-modal-top-input{
     height: fit-content;
@@ -68,6 +67,7 @@
     border-radius: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
