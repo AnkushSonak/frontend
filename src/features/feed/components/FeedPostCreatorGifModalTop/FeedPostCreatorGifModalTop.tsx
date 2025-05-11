@@ -4,7 +4,7 @@ import {updateDisplayGif} from '../../../../redux/Slices/ModalSlice';
 import './FeedPostCreatorGifModalTop.css';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearGifs, updateSearchTerms } from '../../../../redux/Slices/GifSlice';
+import { clearGifs, fetchGifsByTerm, updateSearchTerms } from '../../../../redux/Slices/GifSlice';
 
 export const FeedPostCreatorGifModalTop: React.FC = () => {
 
@@ -12,6 +12,7 @@ export const FeedPostCreatorGifModalTop: React.FC = () => {
     const dispatch:AppDispatch = useDispatch();
 
     const [inputFocused, setInputFocused] = useState<boolean>(false);
+    const [timer, setTimer] = useState<any>();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -27,6 +28,18 @@ export const FeedPostCreatorGifModalTop: React.FC = () => {
             clearInput();
         }else{
             setInputFocused(false);
+        }
+    }
+
+    const hanldeKeyUp = () => {
+        clearTimeout(timer);
+        let t = setTimeout(searchForGifs, 700);
+        setTimer(t);
+    }
+
+    const searchForGifs = () => {
+        if(inputRef && inputRef.current && inputRef.current.value !== ''){
+            dispatch(fetchGifsByTerm(inputRef.current.value));
         }
     }
 
@@ -58,7 +71,7 @@ export const FeedPostCreatorGifModalTop: React.FC = () => {
                     </div>
                     <input id="gif-search" style={!inputFocused && searchTerm.length > 0 ? {width: `${searchTerm.length + 1}ch`} : {}} 
                     className='feed-post-creator-gif-modal-top-input' placeholder='Search for GIFs' value={searchTerm} 
-                    onChange={handleChangeValue} onFocus={handleFocus} onBlur={handleBlur} ref={inputRef} />
+                    onChange={handleChangeValue} onFocus={handleFocus} onBlur={handleBlur} ref={inputRef} onKeyUp={hanldeKeyUp}/>
                     {searchTerm && inputFocused ? <div className='feed-post-creator-gif-modal-top-clear-border'>
                         <button id="clear" className="feed-post-creator-gif-top-clear-input">x</button>
                     </div> : <></>}

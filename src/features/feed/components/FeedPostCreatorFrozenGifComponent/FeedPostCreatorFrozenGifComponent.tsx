@@ -17,8 +17,16 @@ export const FeedPostCreatorFrozenGif: React.FC<FrozenGifProps> = ({image, text}
 
     const freezeGif = () => {
         if(canvasRef && canvasRef .current && imageRef && imageRef.current){
-            let width = 290;
-            let height = 150;
+            let width;
+            let height;
+
+            if(preview){
+                width=290;
+                height=150;
+            }else{
+                width=143;
+                height=135;
+            }
 
             canvasRef.current.width = width;
             canvasRef.current.height = height;
@@ -31,6 +39,10 @@ export const FeedPostCreatorFrozenGif: React.FC<FrozenGifProps> = ({image, text}
                 context.fillStyle ="white";
                 context.drawImage(imageRef.current, 0, 0, width, height);
                 context.fillText(text, (12), (138));
+            }
+
+            if(context !== null  && !preview){
+                context.drawImage(imageRef.current, 0, 0, width ,height);
             }
         }
     }
