@@ -75,6 +75,7 @@ export const FeedPostCreator:React.FC = () => {
                 let body = {
                     content: posts.currentPost.content,
                     author: posts.currentPost.author,
+                    images: posts.currentPost.images,
                     replies: [],
                     scheduled: posts.currentPost.Scheduled,
                     scheduledDate: posts.currentPost.scheduledDate,
@@ -93,7 +94,8 @@ export const FeedPostCreator:React.FC = () => {
                     audience: posts.currentPost.audience,
                     replyRestriction: posts.currentPost.replyRestriction,
                     token: user.token,
-                    images: posts.currentPostImages
+                    images: [],
+                    imageFiles: posts.currentPostImages
                 }
                 dispatch(createPostWithMedia(body));
             }
@@ -142,7 +144,7 @@ export const FeedPostCreator:React.FC = () => {
 
                 if(file) fileArr.push(file);
             }
-            // dispatch(updateCurrentPostImages(imageURLList));
+            dispatch(updateCurrentPostImages(fileArr));
         }
     }
 
@@ -177,8 +179,8 @@ return (
                 onChange={autoGrow}
                 cols={50}
                 maxLength={256} 
-                />
-                {posts.currentPostImages.length > 0 && <FeedPostCreatorImages />}
+            />
+            {(posts.currentPostImages.length > 0 || (posts.currentPost && posts.currentPost.images.length > 0)) && <FeedPostCreatorImages />}
             {active ? <FeedPostReplyRestrictionDropDown /> : <></>}
             <div className={active ? "feed-post-creator-bottom-icons icons-border" : "feed-post-creator-bottom-icons"}>
                 <div className="feed-post-creator-icons-left">
@@ -218,8 +220,8 @@ return (
 
                     }
                     <button
-                        className={postContent === '' && posts.currentPostImages.length < 1 ? "feed-post-creator-post-button" : "feed-post-creator-post-button post-active"}
-                        disabled={postContent === '' && posts.currentPostImages.length < 1}
+                        className={postContent === '' && posts.currentPostImages.length < 1 && (posts.currentPost && posts.currentPost.images.length < 1) ? "feed-post-creator-post-button" : "feed-post-creator-post-button post-active"}
+                        disabled={postContent === '' && posts.currentPostImages.length < 1  && (posts.currentPost && posts.currentPost.images.length < 1)}
                         onClick={submitPost}
                     >
                         Post

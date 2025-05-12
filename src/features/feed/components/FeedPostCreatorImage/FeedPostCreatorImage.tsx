@@ -3,31 +3,35 @@ import './FeedPostCreatorImage.css';
 import { Close } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../redux/Store';
-import { updateCurrentPostImages } from '../../../../redux/Slices/PostSlice';
+import { updateCurrentPost, updateCurrentPostImages } from '../../../../redux/Slices/PostSlice';
 import { updateDisplayEditPostImage } from '../../../../redux/Slices/ModalSlice';
 
 interface FeedPostCreatorImageProps{
     image: string;
     name: string;
+    type: string;
 }
 
-export const FeedPostCreatorImage:React.FC<FeedPostCreatorImageProps> = ({image, name}) => {
+export const FeedPostCreatorImage:React.FC<FeedPostCreatorImageProps> = ({image, name, type}) => {
 
     const state = useSelector((state: RootState) => state.post);
     const dispatch:AppDispatch = useDispatch();
 
     const removeImage = (e:React.MouseEvent<HTMLDivElement>) => {
-
         e.stopPropagation();
-
-        let imageArrayCopy:File[] = state.currentPostImages;
-        
-        imageArrayCopy = imageArrayCopy.filter((img) => img.name !== name);
-        
-        dispatch(updateCurrentPostImages(imageArrayCopy));
+        if(state.currentPost && state.currentPost.images.length  > 0){
+            dispatch(updateCurrentPost({
+                name: "images",
+                value: []
+            }));
+        }else{
+            let filteredImages:File[] = state.currentPostImages.filter((img) => img.name !== name);
+            dispatch(updateCurrentPostImages(filteredImages));
+        }
     }
 
-    const editImage =() => {
+    const editImage =(e:React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
         dispatch(updateDisplayEditPostImage());
     }
 
@@ -39,9 +43,12 @@ export const FeedPostCreatorImage:React.FC<FeedPostCreatorImageProps> = ({image,
                     color: "white"
                 }} />
             </div>
-            <div className="feed-post-creator-image-edit" onClick={editImage}>
-                Edit
-            </div>
+            {
+                type === 'image/gif' || 'gif' ? <></> :
+                <div className="feed-post-creator-image-edit" onClick={editImage}>
+                    Edit
+                </div>
+            }
         </div>
     )
 }
