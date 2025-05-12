@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../../redux/Store';
 import TagPeopleSVG from '../../../../components/SVGs/TagPeopleSVG';
 import ListsSVG from '../../../../components/SVGs/ListsSVG';
-import { createImageContainer } from '../../utils/FeedUtils';
+import { createImageContainer, displayTagPeople } from '../../utils/FeedUtils';
 import { updateDisplayEditPostImage, updateDisplayTagPeople } from '../../../../redux/Slices/ModalSlice';
+import { FeedPostCreatorImage } from '../FeedPostCreatorImage/FeedPostCreatorImage';
 
 export const FeedPostCreatorImages:React.FC = () =>{
 
@@ -15,7 +16,7 @@ export const FeedPostCreatorImages:React.FC = () =>{
 
     const imageContainer = useMemo(() => createImageContainer(postState.currentPostImages), [postState.currentPostImages]);
 
-    const toggleTagPeople = () => {
+    const toggleTagPeopleModal = () => {
         console.log("toggle Tag poeple");
         dispatch(updateDisplayTagPeople());
     }
@@ -26,12 +27,11 @@ export const FeedPostCreatorImages:React.FC = () =>{
 
     return (
         <div className="feed-post-creator-images">
-            {imageContainer}
+            {postState.currentPost?.images.length === 0 ? imageContainer : <div className='feed-post-creator-images-container container-odd'>
+                <FeedPostCreatorImage image={postState.currentPost?.images[0].imageUrl || ''} name={postState.currentPost?.images[0].imageName || ''} type={'gif'}/>  
+                </div>}
             <div className="feed-post-creator-images-options">
-                <p className="feed-post-creator-images-option" onClick={toggleTagPeople}>
-                    <TagPeopleSVG height={16} width={16} color={"#536471"} />
-                    Tag People
-                </p>
+                {displayTagPeople(postState, toggleTagPeopleModal)}
                 <p className="feed-post-creator-images-option" onClick={toggleEditImage}>
                     <ListsSVG height={16} width={16} color={"#536471"} />
                     Add Description
