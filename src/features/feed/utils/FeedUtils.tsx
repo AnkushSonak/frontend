@@ -96,3 +96,30 @@ export function displayTagPeople(state:PostSliceState, toggleTagPeopleModal:Mous
         </p>
     )
 }
+
+export const generatePollDaysSelections = ():JSX.Element[] => {
+    let options:JSX.Element[] = [];
+    for(let i=0; i<=7; i++) {
+        options.push(<option value ={i} key={i}>{i}</option>)
+    }
+
+    return options;
+}
+
+export const generatePollHoursSelections = ():JSX.Element[] => {
+    let options:JSX.Element[] = [];
+    for(let i=0; i<=23; i++) {
+        options.push(<option value ={i} key={i}>{i}</option>)
+    }
+
+    return options;
+}
+
+export const generatePollMinutesSelections = ():JSX.Element[] => {
+    let options:JSX.Element[] = [];
+    for(let i=0; i<=59; i++) {
+        options.push(<option value ={i} key={i}>{i}</option>)
+    }
+
+    return options;
+}
