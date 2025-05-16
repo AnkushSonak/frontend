@@ -11,7 +11,7 @@ import { FeedPostCreatorProgress } from "../FeedPostCreatorProgress/FeedPostCrea
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/Store";
 import { Post } from "../../../../utils/GlobalInterfaces";
-import { createPost, createPostWithMedia, initializeCurrentPost, updateCurrentPost, updateCurrentPostImages } from "../../../../redux/Slices/PostSlice";
+import { createPoll, createPost, createPostWithMedia, initializeCurrentPost, updateCurrentPost, updateCurrentPostImages } from "../../../../redux/Slices/PostSlice";
 import { FeedPostAudienceDropDown } from "../FeedPostAudienceDropDown/FeedPostAudienceDropDown";
 import { FeedPostReplyRestrictionDropDown } from "../FeedPostReplyRestrictionDropDown/FeedPostReplyRestrictionDropDown";
 import { FeedPostCreatorImages } from "../FeedPostCreatorImages/FeedPostCreatorImages";
@@ -45,7 +45,7 @@ export const FeedPostCreator:React.FC = () => {
                     images: [],
                     reposts: 0,
                     views: 0,
-                    Scheduled: false,
+                    scheduled: false,
                     audience: "EVERYONE",
                     replyRestriction: "EVERYONE"   
                 }
@@ -81,7 +81,7 @@ export const FeedPostCreator:React.FC = () => {
                     author: posts.currentPost.author,
                     images: posts.currentPost.images,
                     replies: [],
-                    scheduled: posts.currentPost.Scheduled,
+                    scheduled: posts.currentPost.scheduled,
                     scheduledDate: posts.currentPost.scheduledDate,
                     audience: posts.currentPost.audience,
                     replyRestriction: posts.currentPost.replyRestriction,
@@ -93,7 +93,7 @@ export const FeedPostCreator:React.FC = () => {
                     content: posts.currentPost.content,
                     author: posts.currentPost.author,
                     replies: [],
-                    scheduled: posts.currentPost.Scheduled,
+                    scheduled: posts.currentPost.scheduled,
                     scheduledDate: posts.currentPost.scheduledDate,
                     audience: posts.currentPost.audience,
                     replyRestriction: posts.currentPost.replyRestriction,
@@ -163,11 +163,18 @@ export const FeedPostCreator:React.FC = () => {
         dispatch(updateDisplayGif());
     }
 
+    const generatePoll = (e:React.MouseEvent<HTMLDivElement>) => {
+        if(posts.currentPost === undefined){
+            activate(e);
+        }
+        dispatch(createPoll());
+    } 
+
     useEffect(() => {
         if(!posts.currentPost){
             setPostContent("");
         }
-    }, [posts.currentPost, postContent, activate]);
+    }, [posts.currentPost, postContent, activate, posts.currentPost?.poll]);
 
 return (
     <div className="feed-post-creator" onClick={activate}>
@@ -186,7 +193,7 @@ return (
                 id = {"post-text"}
             />
             {(posts.currentPostImages.length > 0 || (posts.currentPost && posts.currentPost.images.length > 0)) && <FeedPostCreatorImages />}
-            <FeedPostCreatorPoll />
+            {posts.currentPost?.poll && <FeedPostCreatorPoll />}
             {active ? <FeedPostReplyRestrictionDropDown /> : <></>}
             <div className={active ? "feed-post-creator-bottom-icons icons-border" : "feed-post-creator-bottom-icons"}>
                 <div className="feed-post-creator-icons-left">
@@ -200,7 +207,7 @@ return (
                     <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"} onClick={displayGif}>
                         <GifSVG height={20} width={20} color={posts.currentPostImages.length > 0 ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                     </div>
-                    <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"}>
+                    <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"} onClick={generatePoll}>
                         <PollSVG height={20} width={20} color={posts.currentPostImages.length > 0 ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                     </div>
                     <div className="feed-post-creator-icon-bg">

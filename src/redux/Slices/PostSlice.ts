@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Post, PostImage, User } from "../../utils/GlobalInterfaces";
+import { Poll, PollChoice, Post, PostImage, User } from "../../utils/GlobalInterfaces";
 import axios from 'axios'
 import FormData from 'form-data';
 import { Schedule } from "@mui/icons-material";
@@ -144,8 +144,40 @@ export const PostSlice = createSlice({
                 currentPostImages: action.payload
             }
             return state;
+        },
+
+        createPoll(state) {
+            let choices: PollChoice[] = [{
+                pollChoiceId: 0,
+                choiceText: "",
+                votes: []
+            },
+            {
+                pollChoiceId: 0,
+                choiceText: "",
+                votes: []
+            }];
+            let poll: Poll = {
+                pollId: 0,
+                endTime: new Date(),
+                choices
+            }
+
+            let post = JSON.parse(JSON.stringify(state.currentPost));
+            post = {
+                ...post,
+                poll
+            };
+
+            state = {
+                ...state,
+                currentPost: post
+            };
+
+            return state;
         }
     },
+
     extraReducers: (builder) => {
         builder.addCase(createPost.pending, (state, action) => {
             state = {
@@ -213,6 +245,6 @@ export const PostSlice = createSlice({
     }
 })
 
-export const {initializeCurrentPost, updateCurrentPost, updateCurrentPostImages} = PostSlice.actions;
+export const {initializeCurrentPost, updateCurrentPost, updateCurrentPostImages, createPoll} = PostSlice.actions;
 
 export default PostSlice.reducer;

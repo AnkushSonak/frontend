@@ -3,6 +3,7 @@ import { ValidatedTextInput } from "../../../../components/ValidatedInput/Valida
 import AddIcon from '@mui/icons-material/Add'
 import { ValidatedDateSelector } from "../../../../components/ValidatedInput/ValidatedDateSelector";
 import './FeedPostCreatorPoll.css'
+import { generatePollDaysSelections, generatePollHoursSelections, generatePollMinutesSelections } from "../../utils/FeedUtils";
 
 export const FeedPostCreatorPoll:React.FC = () => {
 
@@ -44,9 +45,11 @@ export const FeedPostCreatorPoll:React.FC = () => {
             </div>
             <div className="feed-post-creator-poll-length">
                 <p className="feed-post-creator-poll-length-text">Poll Length</p>
-                <ValidatedDateSelector style="" valid={true} name="Days" dropDown={() => {return[<>Hello</>]}} dispatcher={() => {}}/>
-                <ValidatedDateSelector style="" valid={true} name="Hours" dropDown={() => {return[<>Hello</>]}} dispatcher={() => {}}/>
-                <ValidatedDateSelector style="" valid={true} name="Minutes" dropDown={() => {return[<>Hello</>]}} dispatcher={() => {}}/>
+                <div className="feed-post-creator-poll-length-wrapper">
+                    <ValidatedDateSelector style="" valid={true} name="Days" dropDown={generatePollDaysSelections} data={1} dispatcher={() => { }} />
+                    <ValidatedDateSelector style="" valid={true} name="Hours" dropDown={generatePollHoursSelections} dispatcher={() => { }} />
+                    <ValidatedDateSelector style="" valid={true} name="Minutes" dropDown={generatePollMinutesSelections} dispatcher={() => { }} />
+                </div>
             </div>
             <div className="feed-post-creator-poll-button">
                 Remove Poll

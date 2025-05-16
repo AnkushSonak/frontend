@@ -101,9 +101,10 @@ export interface Post{
     replies?: Post[];
     likes: number;
     images: PostImage[];
+    poll?: Poll;
     reposts: number;
     views: number;
-    Scheduled: boolean;
+    scheduled: boolean;
     scheduledDate?: Date;
     audience: 'EVERYONE' | 'CIRCLE';
     replyRestriction: 'EVERYONE' | 'FOLLOW' | 'CIRCLE' | 'MENTION';
@@ -113,5 +114,17 @@ export interface TenorCategories{
     image: string;
     name: string;
     path: string;
-    searchterm: string; //ATTENTION:: it must be lower case "searchterm" 
+    searchterm: string;
+}
+
+export interface PollChoice {
+    pollChoiceId?: number;
+    choiceText: string;
+    votes: User[];
+}
+
+export interface Poll{
+    pollId: number;
+    endTime: Date;
+    choices: PollChoice[];
 }
