@@ -4,10 +4,20 @@ import AddIcon from '@mui/icons-material/Add'
 import { ValidatedDateSelector } from "../../../../components/ValidatedInput/ValidatedDateSelector";
 import './FeedPostCreatorPoll.css'
 import { generatePollDaysSelections, generatePollHoursSelections, generatePollMinutesSelections } from "../../utils/FeedUtils";
+import { AppDispatch } from "../../../../redux/Store";
+import { useDispatch } from "react-redux";
+import { removePoll, updatePoll } from "../../../../redux/Slices/PostSlice";
 
 export const FeedPostCreatorPoll:React.FC = () => {
 
+    const dispatch:AppDispatch = useDispatch();
+
     const [labels, setLabels] = useState<string[]>(['Choice 1', 'Choice 2']);
+    const [time, setTime] = useState<{days: string, hours: string, minutes: string}>({
+        days: "1",
+        hours: "0",
+        minutes: "0" 
+    })
 
     const addNewChoice = () => {
         if(labels.length <= 4){
@@ -15,8 +25,28 @@ export const FeedPostCreatorPoll:React.FC = () => {
         }
     }
 
-    useEffect(()=>{
+    const updateChoiceText = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const index = e.target.name.split(":")[1];
+        dispatch(updatePoll({
+            index: +index,
+            choiceText: e.target.value
+        }));
 
+    }
+
+    const updateTime = (name: string, value: string | number | boolean) => {
+        setTime({
+            ...time,
+           [name]: value,
+        })
+    }
+
+    const deletePoll = () => {
+        dispatch(removePoll())
+    }
+
+    useEffect(()=>{
+        
     }, [labels.length]);
 
     return (
@@ -27,7 +57,7 @@ export const FeedPostCreatorPoll:React.FC = () => {
                         return (
                             <div className="feed-post-creator-poll-choice" key={label}>
                                 <div className={labels.length < 4 ? "feed-post-creator-poll-choice-wrapper-min" : "feed-post-creator-poll-choice-wrapper-max"}>
-                                    <ValidatedTextInput valid={true} name={`choice:${index}`} label={label} changeValue={() => {}} attributes={{maxLength:25}} />
+                                    <ValidatedTextInput valid={true} name={`choice:${index}`} label={label} changeValue={updateChoiceText} attributes={{maxLength:25}} />
                                 </div>
                                 {
                                     index === labels.length - 1 && labels.length < 4 &&
@@ -46,12 +76,12 @@ export const FeedPostCreatorPoll:React.FC = () => {
             <div className="feed-post-creator-poll-length">
                 <p className="feed-post-creator-poll-length-text">Poll Length</p>
                 <div className="feed-post-creator-poll-length-wrapper">
-                    <ValidatedDateSelector style="" valid={true} name="Days" dropDown={generatePollDaysSelections} data={1} dispatcher={() => { }} />
-                    <ValidatedDateSelector style="" valid={true} name="Hours" dropDown={generatePollHoursSelections} dispatcher={() => { }} />
-                    <ValidatedDateSelector style="" valid={true} name="Minutes" dropDown={generatePollMinutesSelections} dispatcher={() => { }} />
+                    <ValidatedDateSelector style="" valid={true} name="Days" dropDown={generatePollDaysSelections} data={+time.days} dispatcher={updateTime} />
+                    <ValidatedDateSelector style="" valid={true} name="Hours" dropDown={generatePollHoursSelections} data={+time.hours} dispatcher={updateTime} />
+                    <ValidatedDateSelector style="" valid={true} name="Minutes" dropDown={generatePollMinutesSelections} data={+time.minutes} dispatcher={updateTime} />
                 </div>
             </div>
-            <div className="feed-post-creator-poll-button">
+            <div className="feed-post-creator-poll-button" onClick={deletePoll}>
                 Remove Poll
             </div>
         </div>
