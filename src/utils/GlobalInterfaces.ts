@@ -125,6 +125,6 @@ export interface PollChoice {
 
 export interface Poll{
     pollId: number;
-    endTime: Date;
+    endTime: string;
     choices: PollChoice[];
 }
