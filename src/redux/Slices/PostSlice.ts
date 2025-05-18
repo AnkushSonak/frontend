@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Poll, PollChoice, Post, PostImage, User } from "../../utils/GlobalInterfaces";
 import axios from 'axios'
 import FormData from 'form-data';
-import { Schedule } from "@mui/icons-material";
 
 export interface PostSliceState{
     loading: boolean;
@@ -22,6 +21,7 @@ interface CreatePostBody{
     author: User;
     replies: Post[];
     images: PostImage[];
+    poll: Poll | undefined;
     scheduled: boolean;
     scheduledDate: Date | undefined;
     audience: 'EVERYONE' | 'CIRCLE';
@@ -54,6 +54,7 @@ export const createPost = createAsyncThunk(
                 content: body.content,
                 author: body.author,
                 images: body.images,
+                poll: body.poll,
                 replies: [],
                 scheduled: body.scheduled,
                 scheduledDate: body.scheduledDate,
@@ -164,7 +165,7 @@ export const PostSlice = createSlice({
             }];
             let poll: Poll = {
                 pollId: 0,
-                endTime: "",
+                endTime: "1:0:0",
                 choices
             }
 
@@ -233,6 +234,29 @@ export const PostSlice = createSlice({
                 post = {
                     ...post,
                     poll: undefined
+                }
+
+                state = {
+                    ...state,
+                    currentPost: post
+                }
+            }
+
+            return state;
+        },
+        setPollDate(state, action:PayloadAction<string>){
+            if(state.currentPost && state.currentPost.poll){
+                let post = JSON.parse(JSON.stringify(state.currentPost));
+                let poll = post.poll;
+
+                poll = {
+                    ...poll,
+                    endTime: action.payload
+                }
+
+                post = {
+                    ...post,
+                    poll
                 }
 
                 state = {
@@ -312,6 +336,6 @@ export const PostSlice = createSlice({
     }
 })
 
-export const {initializeCurrentPost, updateCurrentPost, updateCurrentPostImages, createPoll, updatePoll, removePoll} = PostSlice.actions;
+export const {initializeCurrentPost, updateCurrentPost, updateCurrentPostImages, createPoll, updatePoll, removePoll, setPollDate} = PostSlice.actions;
 
 export default PostSlice.reducer;

@@ -1,4 +1,3 @@
-import { NumberLiteralType } from "typescript";
 
 interface ThemeColors{
     blue: string;
