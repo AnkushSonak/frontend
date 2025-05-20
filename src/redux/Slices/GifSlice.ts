@@ -3,7 +3,7 @@ import axios from 'axios';
 import { TenorCategories } from '../../utils/GlobalInterfaces';
 import { TENOR_KEY } from '../../config';
 
-interface GifSliceState{
+interface GifSliceState {
     searchTerm: string;
     preview: boolean;
     next: string;
@@ -13,7 +13,7 @@ interface GifSliceState{
     error: boolean;
 }
 
-export interface NextGifPayload{
+export interface NextGifPayload {
     term: string;
     next: string;
 }
@@ -30,7 +30,7 @@ const initialState: GifSliceState = {
 
 export const fetchGifCategories = createAsyncThunk(
     'gif/categories',
-    async(payload, thunkAPI) => {
+    async (payload, thunkAPI) => {
         try {
             let clientKey = 'fwitter';
             let url = `https://tenor.googleapis.com/v2/categories?key=${TENOR_KEY}&client_key=${clientKey}`;
@@ -39,7 +39,7 @@ export const fetchGifCategories = createAsyncThunk(
 
             let data = [];
 
-            for(let i = 0; i < 8; i++){
+            for (let i = 0; i < 8; i++) {
                 data.push(res.data.tags[i]);
             }
 
@@ -52,13 +52,13 @@ export const fetchGifCategories = createAsyncThunk(
 
 export const fetchGifsByTerm = createAsyncThunk(
     'gif/term',
-    async(payload:string, thunkAPI) => {
+    async (payload: string, thunkAPI) => {
         try {
             let clientKey = "fwitter";
             let searchUrl = `https://tenor.googleapis.com/v2/search?q=${payload}&key=${TENOR_KEY}&client_key=${clientKey}&limit=32`;
             let res = await axios.get(searchUrl);
 
-            return{
+            return {
                 data: res.data,
                 term: payload
             }
@@ -70,7 +70,7 @@ export const fetchGifsByTerm = createAsyncThunk(
 
 export const fetchNextGifs = createAsyncThunk(
     'gif/next',
-    async (payload:NextGifPayload, thunkAPi) => {
+    async (payload: NextGifPayload, thunkAPi) => {
         try {
             let clientKey = 'fwitter';
             let searchUrl = `https://tenor.googleapis.com/v2/search?q=${payload}&key=${TENOR_KEY}&client_key=${clientKey}&limit=32&pos=${payload.next}`;
@@ -88,7 +88,7 @@ export const GifSlice = createSlice({
     name: "gif",
     initialState,
     reducers: {
-        updateSearchTerms(state, action:PayloadAction<string>){
+        updateSearchTerms(state, action: PayloadAction<string>) {
             state = {
                 ...state,
                 searchTerm: action.payload
@@ -97,7 +97,7 @@ export const GifSlice = createSlice({
             return state;
         },
 
-        updatePreview(state, action:PayloadAction<boolean>){
+        updatePreview(state, action: PayloadAction<boolean>) {
             state = {
                 ...state,
                 preview: action.payload
@@ -105,20 +105,20 @@ export const GifSlice = createSlice({
             return state;
         },
 
-        clearGifs(state){
+        clearGifs(state) {
             state = {
                 ...state,
                 gifs: []
             }
 
             return state;
-        }        
+        }
     },
 
     extraReducers: (builder) => {
         builder.addCase(fetchGifCategories.fulfilled, (state, action) => {
             state = {
-                ...state, 
+                ...state,
                 loading: false,
                 gifCatergories: action.payload
             }
@@ -129,14 +129,14 @@ export const GifSlice = createSlice({
         builder.addCase(fetchGifsByTerm.fulfilled, (state, action) => {
             let results = action.payload.data.results;
 
-            let gifUrls:string[] = [];
+            let gifUrls: string[] = [];
 
-            results.forEach((item:any) => {
+            results.forEach((item: any) => {
                 gifUrls.push(item.media_formats.gif.url);
             });
 
             state = {
-                ...state, 
+                ...state,
                 searchTerm: action.payload.term,
                 gifs: gifUrls,
                 next: action.payload.data.next,
@@ -149,14 +149,14 @@ export const GifSlice = createSlice({
         builder.addCase(fetchNextGifs.fulfilled, (state, action) => {
             let results = action.payload.results;
 
-            let gifUrls:string[] = [];
+            let gifUrls: string[] = [];
 
-            results.forEach((item:any) => {
+            results.forEach((item: any) => {
                 gifUrls.push(item.media_formats.gif.url);
             });
 
             state = {
-                ...state, 
+                ...state,
                 gifs: [...state.gifs, ...gifUrls],
                 next: action.payload.next,
                 loading: false
@@ -184,6 +184,6 @@ export const GifSlice = createSlice({
     }
 });
 
-export const {updateSearchTerms, updatePreview, clearGifs} = GifSlice.actions;
+export const { updateSearchTerms, updatePreview, clearGifs } = GifSlice.actions;
 
 export default GifSlice.reducer;

@@ -7,44 +7,44 @@ import { PostSliceState } from "../../../redux/Slices/PostSlice"
 import { FeedPostCreatorImage } from "../components/FeedPostCreatorImage/FeedPostCreatorImage"
 import TagPeopleSVG from "../../../components/SVGs/TagPeopleSVG"
 
-export function getReplyDropDownButton(state: PostSliceState, callback:() => void): JSX.Element{
-    switch(state.currentPost?.replyRestriction){
-        case 'EVERYONE' :
+export function getReplyDropDownButton(state: PostSliceState, callback: () => void): JSX.Element {
+    switch (state.currentPost?.replyRestriction) {
+        case 'EVERYONE':
             return (
                 <div className="feed-post-reply-restriction-drop-down-button" onClick={callback}>
                     <GlobeSVG height={14} width={14} color={"#1DA1F2"} />
                     Everyone can reply
                 </div>
             )
-        case 'FOLLOW' :
+        case 'FOLLOW':
             return (
                 <div className="feed-post-reply-restriction-drop-down-button" onClick={callback}>
                     <PeopleYouFollowSVG height={14} width={14} color={"#1DA1F2"} />
                     People you follow can reply
                 </div>
             )
-        case 'CIRCLE' :
+        case 'CIRCLE':
             return (
                 <div className="feed-post-reply-restriction-drop-down-button-disabled">
                     <LockSVG height={14} width={14} color={"rgba(29, 161, 242, .5)"} />
                     Only your Fwitter Circle can reply
                 </div>
-            ) 
-        case 'MENTION' :
+            )
+        case 'MENTION':
             return (
                 <div className="feed-post-reply-restriction-drop-down-button" onClick={callback}>
                     <MentionedSVG height={14} width={14} color={"#1DA1F2"} />
                     Only people you mentioned can reply
                 </div>
             )
-        default: 
+        default:
             return <></>
     }
 }
 
-export function createImageContainer(images:File[]):JSX.Element {
-    if(images.length % 2 === 0){
-        return(
+export function createImageContainer(images: File[]): JSX.Element {
+    if (images.length % 2 === 0) {
+        return (
             <div className="feed-post-creator-images-container container-even">
                 {images.map((image) => {
                     const url = window.URL.createObjectURL(image);
@@ -54,8 +54,8 @@ export function createImageContainer(images:File[]):JSX.Element {
         )
     }
 
-    if(images.length === 3){
-        let reversed: File[] = structuredClone(images); 
+    if (images.length === 3) {
+        let reversed: File[] = structuredClone(images);
 
         reversed.reverse();
 
@@ -71,13 +71,13 @@ export function createImageContainer(images:File[]):JSX.Element {
 
     return (
         <div className="feed-post-creator-images-container container-odd">
-            <FeedPostCreatorImage image={window.URL.createObjectURL(images[0])} name={images[0].name} type={images[0].type}/>
+            <FeedPostCreatorImage image={window.URL.createObjectURL(images[0])} name={images[0].name} type={images[0].type} />
         </div>
     )
 }
 
-export function displayTagPeople(state:PostSliceState, toggleTagPeopleModal:MouseEventHandler<HTMLParagraphElement>):JSX.Element{
-    if(state.currentPost && state.currentPost.images.length > 0){
+export function displayTagPeople(state: PostSliceState, toggleTagPeopleModal: MouseEventHandler<HTMLParagraphElement>): JSX.Element {
+    if (state.currentPost && state.currentPost.images.length > 0) {
         return (
             <div className="feed-post-creator-images-option">
                 via Tenor
@@ -85,7 +85,7 @@ export function displayTagPeople(state:PostSliceState, toggleTagPeopleModal:Mous
         )
     }
 
-    if(state.currentPostImages[0].type === 'imaeg/gif'){
+    if (state.currentPostImages[0].type === 'imaeg/gif') {
         return <></>
     }
 
@@ -97,28 +97,28 @@ export function displayTagPeople(state:PostSliceState, toggleTagPeopleModal:Mous
     )
 }
 
-export const generatePollDaysSelections = ():JSX.Element[] => {
-    let options:JSX.Element[] = [];
-    for(let i=0; i<=7; i++) {
-        options.push(<option value ={i} key={i}>{i}</option>)
+export const generatePollDaysSelections = (): JSX.Element[] => {
+    let options: JSX.Element[] = [];
+    for (let i = 0; i <= 7; i++) {
+        options.push(<option value={i} key={i}>{i}</option>)
     }
 
     return options;
 }
 
-export const generatePollHoursSelections = ():JSX.Element[] => {
-    let options:JSX.Element[] = [];
-    for(let i=0; i<=23; i++) {
-        options.push(<option value ={i} key={i}>{i}</option>)
+export const generatePollHoursSelections = (): JSX.Element[] => {
+    let options: JSX.Element[] = [];
+    for (let i = 0; i <= 23; i++) {
+        options.push(<option value={i} key={i}>{i}</option>)
     }
 
     return options;
 }
 
-export const generatePollMinutesSelections = ():JSX.Element[] => {
-    let options:JSX.Element[] = [];
-    for(let i=0; i<=59; i++) {
-        options.push(<option value ={i} key={i}>{i}</option>)
+export const generatePollMinutesSelections = (): JSX.Element[] => {
+    let options: JSX.Element[] = [];
+    for (let i = 0; i <= 59; i++) {
+        options.push(<option value={i} key={i}>{i}</option>)
     }
 
     return options;

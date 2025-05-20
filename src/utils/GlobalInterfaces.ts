@@ -1,5 +1,5 @@
 
-interface ThemeColors{
+interface ThemeColors {
     blue: string;
     black: string;
     darkGray: string;
@@ -9,18 +9,18 @@ interface ThemeColors{
     error: string;
 }
 
-export interface Theme{
+export interface Theme {
     colors: ThemeColors;
 }
 
-export interface StyledInputprops{
+export interface StyledInputprops {
     active: boolean;
     valid: boolean;
     theme: Theme;
     color?: string;
 }
 
-export interface ValidateInputState{
+export interface ValidateInputState {
     active: boolean;
     valid: boolean;
     typedIn: boolean;
@@ -29,7 +29,7 @@ export interface ValidateInputState{
     value: string;
 }
 
-export interface Dob{
+export interface Dob {
     month: number;
     day: number;
     year: number;
@@ -41,12 +41,12 @@ export interface StyledNextButtonProps {
     color: string;
 }
 
-export interface StyledCheckBoxProps{
+export interface StyledCheckBoxProps {
     active: boolean;
     theme: Theme;
 }
 
-export interface User{
+export interface User {
     userId: number;
     firstName: string;
     lastName: string;
@@ -54,7 +54,7 @@ export interface User{
     username: string;
     phone: string;
     dateOfBireth: Dob;
-    bio: string; 
+    bio: string;
     nickname: string;
     profilePicture: string;
     bannerPicture: string;
@@ -67,7 +67,7 @@ interface RGBA {
     a: number;
 }
 
-export interface ModalButtonProps{
+export interface ModalButtonProps {
     active: boolean;
     height: number;
     fontColor: string;
@@ -76,23 +76,23 @@ export interface ModalButtonProps{
     fontSize: number;
     fontWeight: number;
     hoverBackground: RGBA;
-    hoverBorder?: RGBA; 
+    hoverBorder?: RGBA;
 }
 
-export interface SVGProps{
+export interface SVGProps {
     height: number;
     width: number;
     color?: string;
 }
 
-export interface PostImage{
+export interface PostImage {
     imageId: number;
     imageName: string;
     imageType: string;
     imageUrl: string;
 }
 
-export interface Post{
+export interface Post {
     postId: number;
     content: string;
     postedDate?: Date;
@@ -109,7 +109,7 @@ export interface Post{
     replyRestriction: 'EVERYONE' | 'FOLLOW' | 'CIRCLE' | 'MENTION';
 }
 
-export interface TenorCategories{
+export interface TenorCategories {
     image: string;
     name: string;
     path: string;
@@ -122,7 +122,7 @@ export interface PollChoice {
     votes: User[];
 }
 
-export interface Poll{
+export interface Poll {
     pollId: number;
     endTime: string;
     choices: PollChoice[];
