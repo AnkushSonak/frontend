@@ -3,7 +3,7 @@ import { Poll, PollChoice, Post, PostImage, User } from "../../utils/GlobalInter
 import axios from 'axios'
 import FormData from 'form-data';
 
-export interface PostSliceState{
+export interface PostSliceState {
     loading: boolean;
     error: boolean;
     currentPost: Post | undefined;
@@ -11,12 +11,12 @@ export interface PostSliceState{
     currentPostImages: File[];
 }
 
-interface updatePostPayload{
+interface updatePostPayload {
     name: string;
-    value: string | number | boolean | PostImage[]    
+    value: string | number | boolean | PostImage[]
 }
 
-interface CreatePostBody{
+interface CreatePostBody {
     content: string;
     author: User;
     replies: Post[];
@@ -29,16 +29,16 @@ interface CreatePostBody{
     token: string;
 }
 
-interface CreatePostWithMediaBody extends CreatePostBody{
+interface CreatePostWithMediaBody extends CreatePostBody {
     imageFiles: File[];
- }
+}
 
-interface UpdatePollPayload{
+interface UpdatePollPayload {
     index: number;
     choiceText: string;
 }
 
-const initialState:PostSliceState = {
+const initialState: PostSliceState = {
     loading: false,
     error: false,
     currentPost: undefined,
@@ -48,7 +48,7 @@ const initialState:PostSliceState = {
 
 export const createPost = createAsyncThunk(
     'post/create',
-    async(body:CreatePostBody, thunkAPI) => {
+    async (body: CreatePostBody, thunkAPI) => {
         try {
             let post = {
                 content: body.content,
@@ -76,7 +76,7 @@ export const createPost = createAsyncThunk(
 
 export const createPostWithMedia = createAsyncThunk(
     'post/create-media',
-    async(body: CreatePostWithMediaBody, thunkAPI) => {
+    async (body: CreatePostWithMediaBody, thunkAPI) => {
         try {
             const images = body.imageFiles;
 
@@ -98,7 +98,7 @@ export const createPostWithMedia = createAsyncThunk(
                 data.append('media', image);
             });
 
-            let config =  {
+            let config = {
                 method: 'post',
                 url: 'http://localhost:8000/posts/media',
                 headers: {
@@ -122,11 +122,11 @@ export const PostSlice = createSlice({
     name: "post",
     initialState,
     reducers: {
-        initializeCurrentPost(state, action:PayloadAction<Post>){
-            if(!state.currentPost){
+        initializeCurrentPost(state, action: PayloadAction<Post>) {
+            if (!state.currentPost) {
                 state.currentPost = action.payload;
-            }else{
-                state ={
+            } else {
+                state = {
                     ...state,
                     currentPost: action.payload
                 }
@@ -134,8 +134,8 @@ export const PostSlice = createSlice({
             return state;
         },
 
-        updateCurrentPost(state, action:PayloadAction<updatePostPayload>){
-            if(state.currentPost){
+        updateCurrentPost(state, action: PayloadAction<updatePostPayload>) {
+            if (state.currentPost) {
                 state.currentPost = {
                     ...state.currentPost,
                     [action.payload.name]: action.payload.value
@@ -144,7 +144,7 @@ export const PostSlice = createSlice({
             return state;
         },
 
-        updateCurrentPostImages(state, action:PayloadAction<File[]>){
+        updateCurrentPostImages(state, action: PayloadAction<File[]>) {
             state = {
                 ...state,
                 currentPostImages: action.payload
@@ -182,24 +182,24 @@ export const PostSlice = createSlice({
 
             return state;
         },
-        updatePoll(state, action:PayloadAction<UpdatePollPayload>){
+        updatePoll(state, action: PayloadAction<UpdatePollPayload>) {
 
-            if(state.currentPost && state.currentPost.poll){
+            if (state.currentPost && state.currentPost.poll) {
                 let post = JSON.parse(JSON.stringify(state.currentPost));
                 let poll = post.poll;
                 let choices = poll.choices;
 
-                if(choices.length-1 < action.payload.index){
-                    let choice:PollChoice = {
+                if (choices.length - 1 < action.payload.index) {
+                    let choice: PollChoice = {
                         pollChoiceId: 0,
                         choiceText: action.payload.choiceText,
                         votes: []
-                    } 
+                    }
 
                     choices[action.payload.index] = choice;
-                }else{
-                    let choice:PollChoice = choices[action.payload.index]
-                    
+                } else {
+                    let choice: PollChoice = choices[action.payload.index]
+
                     choice = {
                         ...choice,
                         choiceText: action.payload.choiceText
@@ -222,14 +222,14 @@ export const PostSlice = createSlice({
                     ...state,
                     currentPost: post
                 }
-                
+
             }
 
             return state;
         },
 
-        removePoll(state){
-            if(state.currentPost && state.currentPost.poll){
+        removePoll(state) {
+            if (state.currentPost && state.currentPost.poll) {
                 let post = JSON.parse(JSON.stringify(state.currentPost));
                 post = {
                     ...post,
@@ -244,8 +244,8 @@ export const PostSlice = createSlice({
 
             return state;
         },
-        setPollDate(state, action:PayloadAction<string>){
-            if(state.currentPost && state.currentPost.poll){
+        setPollDate(state, action: PayloadAction<string>) {
+            if (state.currentPost && state.currentPost.poll) {
                 let post = JSON.parse(JSON.stringify(state.currentPost));
                 let poll = post.poll;
 
@@ -336,6 +336,6 @@ export const PostSlice = createSlice({
     }
 })
 
-export const {initializeCurrentPost, updateCurrentPost, updateCurrentPostImages, createPoll, updatePoll, removePoll, setPollDate} = PostSlice.actions;
+export const { initializeCurrentPost, updateCurrentPost, updateCurrentPostImages, createPoll, updatePoll, removePoll, setPollDate } = PostSlice.actions;
 
 export default PostSlice.reducer;
