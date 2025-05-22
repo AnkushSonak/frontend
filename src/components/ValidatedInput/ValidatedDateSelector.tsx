@@ -5,7 +5,7 @@ import './ValidatedInput.css'
 import { ExpandMoreRounded } from "@mui/icons-material";
 
 interface ValidatedDateSelectorProps{
-    style: string;
+    style?: string;
     valid: boolean;
     name: string;
     dropDown(): JSX.Element[];
