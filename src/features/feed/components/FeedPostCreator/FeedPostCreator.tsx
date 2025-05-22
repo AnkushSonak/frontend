@@ -15,7 +15,7 @@ import { createPoll, createPost, createPostWithMedia, initializeCurrentPost, upd
 import { FeedPostAudienceDropDown } from "../FeedPostAudienceDropDown/FeedPostAudienceDropDown";
 import { FeedPostReplyRestrictionDropDown } from "../FeedPostReplyRestrictionDropDown/FeedPostReplyRestrictionDropDown";
 import { FeedPostCreatorImages } from "../FeedPostCreatorImages/FeedPostCreatorImages";
-import { updateDisplayGif } from "../../../../redux/Slices/ModalSlice";
+import { updateDisplayGif, updateDisplaySchedule } from "../../../../redux/Slices/ModalSlice";
 import { FeedPostCreatorPoll } from "../FeedPostCreatorPoll/FeedPostCreatorPoll";
 
 export const FeedPostCreator: React.FC = () => {
@@ -205,6 +205,10 @@ export const FeedPostCreator: React.FC = () => {
         return !(postContent !== '' || posts.currentPostImages.length > 0 || (posts.currentPost && posts.currentPost.images.length >= 1) || (posts.currentPost && posts.currentPost.poll !== undefined));
     }
 
+    const openScheduleModal = () => {
+        dispatch(updateDisplaySchedule());
+    }
+
     useEffect(() => {
         if (!posts.currentPost) {
             setPostContent("");
@@ -246,10 +250,10 @@ export const FeedPostCreator: React.FC = () => {
                         <div className={posts.currentPostImages.length > 0 ? "feed-post-creator-icon-bg" : "feed-post-creator-icon-bg icon-active"} onClick={generatePoll}>
                             <PollSVG height={20} width={20} color={posts.currentPostImages.length > 0 ? "rgba(19, 161, 242, .5)" : "#1DA1F2"} />
                         </div>
-                        <div className="feed-post-creator-icon-bg">
+                        <div className="feed-post-creator-icon-bg icon-active">
                             <EmojiSVG height={20} width={20} color={"#1DA1F2"} />
                         </div>
-                        <div className="feed-post-creator-icon-bg">
+                        <div className="feed-post-creator-icon-bg icon-active" onClick={openScheduleModal}>
                             <ScheduleSVG height={20} width={20} color={"#1DA1F2"} />
                         </div>
                         <div className="feed-post-creator-location">
