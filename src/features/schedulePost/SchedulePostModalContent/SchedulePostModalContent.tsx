@@ -22,7 +22,8 @@ export const SchedulePostModalContent:React.FC = () => {
         let dateCopy = new Date(scheduledDate);
 
         if(name === 'month' && typeof(value) === 'number'){
-            dateCopy.setMonth(value);
+            console.log(name +" "+ value);
+            dateCopy.setMonth(value-1);
             setScheduledDate(dateCopy);
         }
         
@@ -33,7 +34,7 @@ export const SchedulePostModalContent:React.FC = () => {
     }
 
     const generateDateString = () => {
-        const month = MONTHS[scheduledDate.getMonth() === new Date().getMonth() ? scheduledDate.getMonth() + 1 : scheduledDate.getMonth()].slice(0,3);
+        const month = MONTHS[scheduledDate.getMonth() + 1].slice(0,3);
         const day = DAYS[scheduledDate.getDay()];
         const dayOfMonth = scheduledDate.getDate();
         const year = scheduledDate.getFullYear();
@@ -57,7 +58,7 @@ export const SchedulePostModalContent:React.FC = () => {
                 </div>
                 <p className="schedule-post-modal-content-label">Date</p>
                 <div className="schedule-post-modal-content-date-group">
-                    <ValidatedDateSelector name='Month' valid={true} dropDown={getMonths} dispatcher={updateScheduledDate} data={scheduledDate.getMonth() === new Date().getMonth() ? scheduledDate.getMonth() + 1 : scheduledDate.getMonth()} />
+                    <ValidatedDateSelector name='Month' valid={true} dropDown={getMonths} dispatcher={updateScheduledDate} data={scheduledDate.getMonth() + 1} />
                     <ValidatedDateSelector name='Day' valid={true} dropDown={getDays} dispatcher={updateScheduledDate} data={scheduledDate.getDate()} />
                     <ValidatedDateSelector name='Year' valid={true} dropDown={getScheduleYears} dispatcher={()=>{}} data={scheduledDate.getFullYear()} />
                     <label onClick={openDateSelector}>
