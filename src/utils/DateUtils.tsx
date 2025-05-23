@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import { Dob } from "./GlobalInterfaces";
 
-const MONTHS: string[] =[
+export const MONTHS: string[] =[
     '',
     'January',
     'Febuary',
