@@ -66,3 +66,8 @@ export const validatePhone = (phone: string): boolean =>{
     let stripped = phone.replace(/[^0-9]/ig, "");
     return stripped.length ===10;
 }
+
+export const validateFutureDate = (d:Date): boolean => {
+    let currentDate = new Date();
+    return currentDate <= d;
+}

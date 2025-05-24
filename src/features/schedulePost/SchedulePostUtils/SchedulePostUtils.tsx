@@ -39,8 +39,8 @@ export const getScheduleMinutes = ():JSX.Element[] => {
 export const getAmPm = ():JSX.Element[] => {
     let options:JSX.Element[] = [];
 
-        options.push(<option value="AM" key="AM">AM</option>)
-        options.push(<option value="PM" key="PM">PM</option>)
+        options.push(<option value={0} key="AM">AM</option>)
+        options.push(<option value={1} key="PM">PM</option>)
 
     return options;
 }
