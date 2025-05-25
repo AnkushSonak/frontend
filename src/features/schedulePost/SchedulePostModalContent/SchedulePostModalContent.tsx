@@ -88,32 +88,46 @@ export const SchedulePostModalContent:React.FC = () => {
             <div className="schedule-post-modal-content-top">
                 <div className="schedule-post-modal-content-scheduled-info">
                     <ScheduleTimeSVG height={20} width={20} color={"#657786"} />
-                    Will send on {generateDateString()}
+                    <p className='schedule-post-modal-content-scheduled-date'>Will send on {generateDateString()}</p>
                 </div>
                 <p className="schedule-post-modal-content-label">Date</p>
                 <div className="schedule-post-modal-content-date-group">
-                    <ValidatedDateSelector name='Month' valid={validateFutureDate(scheduledDate)} dropDown={getMonths} dispatcher={updateScheduledDate} data={scheduledDate.getMonth() + 1} />
-                    <ValidatedDateSelector name='Day' valid={validateFutureDate(scheduledDate)} dropDown={getDays} dispatcher={updateScheduledDate} data={scheduledDate.getDate()} />
-                    <ValidatedDateSelector name='Year' valid={validateFutureDate(scheduledDate)} dropDown={getScheduleYears} dispatcher={updateScheduledDate} data={scheduledDate.getFullYear()} />
-                    <label onClick={openDateSelector}>
+                    <div className="schedule-post-modal-month-select-wrapper">
+                        <ValidatedDateSelector name='Month' valid={validateFutureDate(scheduledDate)} dropDown={getMonths} dispatcher={updateScheduledDate} data={scheduledDate.getMonth() + 1} />
+                    </div>
+                    <div className="schedule-post-modal-day-select-wrapper">
+                        <ValidatedDateSelector name='Day' valid={validateFutureDate(scheduledDate)} dropDown={getDays} dispatcher={updateScheduledDate} data={scheduledDate.getDate()} />
+                    </div>
+                    <div className="schedule-post-modal-year-select-wrapper">
+                        <ValidatedDateSelector name='Year' valid={validateFutureDate(scheduledDate)} dropDown={getScheduleYears} dispatcher={updateScheduledDate} data={scheduledDate.getFullYear()} />
+                    </div>
+                    <label className='schedule-post-modal-calendar-select-wrapper' onClick={openDateSelector}>
                         <CalendarMonthIcon sx={{
-                            fontSize: "14px"
-                        }}/>
-                        
+                            fontSize: "24px"
+                        }} />
+
                     </label>
                     <input type='date' hidden id="date-selector" ref={dateSelectorRef} />
                 </div>
+                <p className="schedule-post-modal-content-label">Time</p>
                 <div className="schedule-post-modal-content-time-group">
-                    <p className="schedule-post-modal-content-label">Time</p>
-                    <ValidatedDateSelector name='Hour' valid={validateFutureDate(scheduledDate)} dropDown={getScheduleHours} dispatcher={updateScheduledDate}  data={+scheduledDate.toLocaleTimeString().split(":")[0]} />
-                    <ValidatedDateSelector name='Minute' valid={validateFutureDate(scheduledDate)} dropDown={getScheduleMinutes} dispatcher={updateScheduledDate} data={scheduledDate.getMinutes()} />
-                    <ValidatedDateSelector name='AM/PM' valid={validateFutureDate(scheduledDate)} dropDown={getAmPm} dispatcher={updateScheduledDate} data={amPm} />
+                    <div className="schedule-post-modal-hour-select-wrapper">
+                        <ValidatedDateSelector name='Hour' valid={validateFutureDate(scheduledDate)} dropDown={getScheduleHours} dispatcher={updateScheduledDate} data={+scheduledDate.toLocaleTimeString().split(":")[0]} />
+                    </div>
+                    <div className="schedule-post-modal-minute-select-wrapper">
+                        <ValidatedDateSelector name='Minute' valid={validateFutureDate(scheduledDate)} dropDown={getScheduleMinutes} dispatcher={updateScheduledDate} data={scheduledDate.getMinutes()} />
+                    </div>
+                    <div className="schedule-post-modal-ampm-select-wrapper">
+                        <ValidatedDateSelector name='AM/PM' valid={validateFutureDate(scheduledDate)} dropDown={getAmPm} dispatcher={updateScheduledDate} data={amPm} />
+                    </div>
                 </div>
                 <p className="schedule-post-modal-content-label">Time Zone</p>
                 <h3 className="schedule-post-modal-content-time-zone">{Intl.DateTimeFormat().resolvedOptions().timeZone}</h3>
             </div>
             <div className="schedule-post-modal-content-bottom">
+                <div className="schedule-post-modal-content-scheduled-posts-bg">
                 <p className="schedule-post-modal-content-scheduled-posts">Scheduled Post</p>
+                </div>
             </div>
         </div>
     )
