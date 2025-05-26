@@ -70,7 +70,20 @@ export const SchedulePostModalContent:React.FC = () => {
             setAmPm(value);
         }
 
-        if(validateFutureDate(dateCopy)) dispatch(setScheduleDate(scheduledDate));
+        if(validateFutureDate(dateCopy)) dispatch(setScheduleDate(dateCopy));
+    }
+
+    const selectDateChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        let selectedDate:any = e.target.value;
+        let d = new Date(selectedDate);
+
+        let dateCopy = new Date(scheduledDate);
+        dateCopy.setMonth(d.getMonth());
+        dateCopy.setDate(d.getDate());
+        dateCopy.setFullYear(d.getFullYear());
+
+        setScheduledDate(dateCopy);
+        if(validateFutureDate(dateCopy)) dispatch(setScheduleDate(dateCopy));
     }
 
     const generateDateString = () => {
@@ -107,7 +120,7 @@ export const SchedulePostModalContent:React.FC = () => {
                         }} />
 
                     </label>
-                    <input type='date' hidden id="date-selector" ref={dateSelectorRef} />
+                    <input type='date' id="date-selector" ref={dateSelectorRef} onChange={selectDateChange} />
                 </div>
                 <p className="schedule-post-modal-content-label">Time</p>
                 <div className="schedule-post-modal-content-time-group">
