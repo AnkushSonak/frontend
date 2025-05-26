@@ -17,6 +17,7 @@ import { FeedPostReplyRestrictionDropDown } from "../FeedPostReplyRestrictionDro
 import { FeedPostCreatorImages } from "../FeedPostCreatorImages/FeedPostCreatorImages";
 import { updateDisplayGif, updateDisplaySchedule } from "../../../../redux/Slices/ModalSlice";
 import { FeedPostCreatorPoll } from "../FeedPostCreatorPoll/FeedPostCreatorPoll";
+import { EmojiDropDown } from "../../../../components/EmojiDropDown/EmojiDropDown";
 
 export const FeedPostCreator: React.FC = () => {
 
@@ -284,6 +285,7 @@ export const FeedPostCreator: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <EmojiDropDown />
         </div>
     )
 }
