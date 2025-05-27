@@ -1,0 +1,12 @@
+.emoji-drop-down{
+    z-index: 50;
+    position: absolute;
+    width: 320px;
+    height: 400px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+    background-color: white;
+    top: 27.5%;
+    left: 36%;
+    border-radius: 16px;
+    border: none;
+}
