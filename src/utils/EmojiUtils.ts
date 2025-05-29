@@ -34,7 +34,7 @@ export const generateFoodAndDrink = () => {
         if (emoji.category === "Food & Drink") {
             return emoji
         }
-    }).map((emoji:any) => emoji);
+    }).map((emoji:any) => emoji.emoji);
 
     return foodAndDrink;
 }
@@ -45,7 +45,7 @@ export const generateActivities = () => {
         if (emoji.category === "Activities") {
             return emoji
         }
-    }).map((emoji:any) => emoji);
+    }).map((emoji:any) => emoji.emoji);
 
     return activities;
 }
@@ -56,7 +56,7 @@ export const generateTravelAndPlaces = () => {
         if (emoji.category === "Travel & Places") {
             return emoji
         }
-    }).map((emoji:any) => emoji);
+    }).map((emoji:any) => emoji.emoji);
 
     return travelAndPlaces;
 }
@@ -67,7 +67,7 @@ export const generateObjects = () => {
         if (emoji.category === "Objects") {
             return emoji
         }
-    }).map((emoji:any) => emoji);
+    }).map((emoji:any) => emoji.emoji);
 
     return objects;
 }
@@ -78,7 +78,7 @@ export const generateSymbols = () => {
         if (emoji.category === "Symbols") {
             return emoji
         }
-    }).map((emoji:any) => emoji);
+    }).map((emoji:any) => emoji.emoji);
 
     return symbols;
 }
@@ -89,7 +89,7 @@ export const generateFlags = () => {
         if (emoji.category === "Flags") {
             return emoji
         }
-    }).map((emoji:any) => emoji);
+    }).map((emoji:any) => emoji.emoji);
 
     return flags;
 }
