@@ -6,26 +6,82 @@ import './EmojiDropDown.css';
 export const EmojiDropDown: React.FC = () => {
 
     const [activeCategory, setActiveCategory] = useState<number>(1);
+    const navigateToSection = (e:React.MouseEvent<HTMLDivElement>)=>{
+        switch(e.currentTarget.id){
+            case "0" :
+                setActiveCategory(0);
+                const recent = document.getElementById("Recent");
+                if(recent) recent.scrollIntoView(); 
+                break;
+            case "1":
+                setActiveCategory(1)
+                const smileys = document.getElementById("Smileys & people");
+                if(smileys) smileys.scrollIntoView(); 
+                break;
+            case "2" :
+                setActiveCategory(2);
+                const animals = document.getElementById("Animals & nature");
+                if(animals) animals.scrollIntoView(); 
+                break;
+            case "3" :
+                setActiveCategory(3);
+                const food = document.getElementById("Food & drink");
+                if(food) food.scrollIntoView(); 
+                break;
+            case "4" :
+                setActiveCategory(4);
+                const activity = document.getElementById("Activity");
+                if(activity) activity.scrollIntoView(); 
+                break;
+            case "5" :
+                setActiveCategory(5);
+                const travel = document.getElementById("Travel & places");
+                if(travel) travel.scrollIntoView(); 
+                break;
+            case "6" :
+                setActiveCategory(6);
+                const objects = document.getElementById("Objects");
+                if(objects) objects.scrollIntoView(); 
+                break;
+            case "7" :
+                setActiveCategory(7);
+                const symbols = document.getElementById("Symbols");
+                if(symbols) symbols.scrollIntoView(); 
+                break;
+            default:
+                setActiveCategory(8);
+                const flags = document.getElementById("Flags");
+                if(flags) flags.scrollIntoView(); 
+        }
+    }
 
     return (
         <div className="emoji-drop-down">
             <div className="emoji-drop-down-top">
                 <div className="emoji-drop-down-top-search-border">
-                    <SearchIcon />
-                    <input className="emoji-drop-down-search" id="emoji-search" onChange={() => { }} />
+                    <SearchIcon sx={{
+                        fontSize: "20px",
+                        position: "absolute",
+                        top: "14px",
+                        left: "16px"
+                    }} />
+                    <input className="emoji-drop-down-search" id="emoji-search" placeholder="Search emojis" onChange={() => { }} />
                 </div>
                 <div className="emoji-drop-down-categories">
-                    {generateTopRow().map((img, index) => {
+                    {generateTopRow().map((data, index) => {
                         if (activeCategory === index) {
-                            return <div className="emoji-drop-down-category emoji-active" id={`${index}`} style={{
-                                backgroundImage: `url("${img}")`,
-
-                            }}></div>
+                            return <div className="emoji-drop-down-category-wrapper">
+                                <div className="emoji-drop-down-category emoji-active" id={`${index}`} style={{
+                                    backgroundImage: `url("${data.img}")`,
+                                }}></div>
+                                <div className="emoji-drop-down-category-underline-active"></div>
+                            </div>
                         } else {
-                            return <div className="emoji-drop-down-category emoji-inactive" id={`${index}`} style={{
-                                backgroundImage: `url("${img}")`,
-
-                            }}></div>
+                            return <div className="emoji-drop-down-category-wrapper">
+                                <div className="emoji-drop-down-category emoji-inactive" id={`${index}`} style={{
+                                    backgroundImage: `url("${data.img}")`,}} onClick={navigateToSection}></div>
+                                <div className="emoji-drop-down-category-underline-inactive"></div>
+                            </div>
                         }
                     })}
                 </div>
