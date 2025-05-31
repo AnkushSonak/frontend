@@ -1,4 +1,4 @@
-.emoji-drop-down{
+.emoji-drop-down {
     z-index: 50;
     position: absolute;
     width: 320px;
@@ -11,14 +11,14 @@
     border: none;
 }
 
-.emoji-drop-down-top{
+.emoji-drop-down-top {
     width: 100%;
     height: 84px;
     border-bottom: 1px solid #AAB8C2;
     padding: 4px 4px 0 4px;
 }
 
-.emoji-drop-down-search{
+.emoji-drop-down-search {
     width: 100%;
     height: 40px;
     border-radius: 20px;
@@ -31,17 +31,17 @@
     margin-bottom: 2px;
 }
 
-.emoji-drop-down-search:focus{
+.emoji-drop-down-search:focus {
     border: 2px solid #1DA1F2;
     outline: none;
 }
 
-.emoji-drop-down-search::placeholder{
+.emoji-drop-down-search::placeholder {
     font-size: 14px;
     font-weight: 400;
 }
 
-.emoji-drop-down-categories{
+.emoji-drop-down-categories {
     width: 100%;
     height: fit-content;
     display: flex;
@@ -49,12 +49,12 @@
     align-items: center;
 }
 
-.emoji-drop-down-category-wrapper{
+.emoji-drop-down-category-wrapper {
     width: 35px;
     height: 39px;
 }
 
-.emoji-drop-down-category{
+.emoji-drop-down-category {
     width: 33px;
     height: 33px;
     background-size: 24px;
@@ -62,36 +62,36 @@
     background-repeat: no-repeat;
 }
 
-.emoji-inactive{
+.emoji-inactive {
     filter: grayscale(100%);
 }
 
-.emoji-inactive:hover{
+.emoji-inactive:hover {
     filter: grayscale(0%);
     cursor: pointer;
     background-color: rgba(0, 0, 0, .1);
     border-radius: 4px;
 }
 
-.emoji-drop-down-category-underline-active{
+.emoji-drop-down-category-underline-active {
     height: 4px;
     width: 100%;
     background-color: #1DA1F2;
     border-radius: 2px;
 }
 
-.emoji-drop-down-selector{
+.emoji-drop-down-selector {
     width: 100%;
     height: 255px;
     overflow-y: scroll;
 }
 
-.emoji-drop-down-selection-section{
+.emoji-drop-down-selection-section {
     width: 100%;
     height: fit-content;
 }
 
-.emoji-drop-down-selector-section-title{
+.emoji-drop-down-selector-section-title {
     width: 100%;
     background-color: white;
     margin: 0;
@@ -102,7 +102,7 @@
     top: 0;
 }
 
-.emoji-drop-down-selector-emoji-wrapper{
+.emoji-drop-down-selector-emoji-wrapper {
     width: 100%;
     height: fit-content;
     display: flex;
@@ -113,7 +113,7 @@
     padding-right: 12px;
 }
 
-.emoji-drop-down-emoji{
+.emoji-drop-down-emoji {
     height: 32px;
     width: 32px;
     font-size: 18px;
@@ -123,7 +123,7 @@
     align-items: center;
 }
 
-.emoji-drop-down-emoji:hover{
+.emoji-drop-down-emoji:hover {
     border-radius: 2px;
     background-color: rgba(0, 0, 0, .1);
 }
