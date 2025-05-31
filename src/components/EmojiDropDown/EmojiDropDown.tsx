@@ -6,52 +6,52 @@ import './EmojiDropDown.css';
 export const EmojiDropDown: React.FC = () => {
 
     const [activeCategory, setActiveCategory] = useState<number>(1);
-    const navigateToSection = (e:React.MouseEvent<HTMLDivElement>)=>{
-        switch(e.currentTarget.id){
-            case "0" :
+    const navigateToSection = (e: React.MouseEvent<HTMLDivElement>) => {
+        switch (e.currentTarget.id) {
+            case "0":
                 setActiveCategory(0);
                 const recent = document.getElementById("Recent");
-                if(recent) recent.scrollIntoView(); 
+                if (recent) recent.scrollIntoView();
                 break;
             case "1":
                 setActiveCategory(1)
                 const smileys = document.getElementById("Smileys & people");
-                if(smileys) smileys.scrollIntoView(); 
+                if (smileys) smileys.scrollIntoView();
                 break;
-            case "2" :
+            case "2":
                 setActiveCategory(2);
                 const animals = document.getElementById("Animals & nature");
-                if(animals) animals.scrollIntoView(); 
+                if (animals) animals.scrollIntoView();
                 break;
-            case "3" :
+            case "3":
                 setActiveCategory(3);
                 const food = document.getElementById("Food & drink");
-                if(food) food.scrollIntoView(); 
+                if (food) food.scrollIntoView();
                 break;
-            case "4" :
+            case "4":
                 setActiveCategory(4);
                 const activity = document.getElementById("Activity");
-                if(activity) activity.scrollIntoView(); 
+                if (activity) activity.scrollIntoView();
                 break;
-            case "5" :
+            case "5":
                 setActiveCategory(5);
                 const travel = document.getElementById("Travel & places");
-                if(travel) travel.scrollIntoView(); 
+                if (travel) travel.scrollIntoView();
                 break;
-            case "6" :
+            case "6":
                 setActiveCategory(6);
                 const objects = document.getElementById("Objects");
-                if(objects) objects.scrollIntoView(); 
+                if (objects) objects.scrollIntoView();
                 break;
-            case "7" :
+            case "7":
                 setActiveCategory(7);
                 const symbols = document.getElementById("Symbols");
-                if(symbols) symbols.scrollIntoView(); 
+                if (symbols) symbols.scrollIntoView();
                 break;
             default:
                 setActiveCategory(8);
                 const flags = document.getElementById("Flags");
-                if(flags) flags.scrollIntoView(); 
+                if (flags) flags.scrollIntoView();
         }
     }
 
@@ -79,7 +79,8 @@ export const EmojiDropDown: React.FC = () => {
                         } else {
                             return <div className="emoji-drop-down-category-wrapper">
                                 <div className="emoji-drop-down-category emoji-inactive" id={`${index}`} style={{
-                                    backgroundImage: `url("${data.img}")`,}} onClick={navigateToSection}></div>
+                                    backgroundImage: `url("${data.img}")`,
+                                }} onClick={navigateToSection}></div>
                                 <div className="emoji-drop-down-category-underline-inactive"></div>
                             </div>
                         }
@@ -103,37 +104,37 @@ export const EmojiDropDown: React.FC = () => {
                 <div className="emoji-drop-down-selection-section" id="Food & drink">
                     <h2 className="emoji-drop-down-selector-section-title">Food & drink</h2>
                     <div className="emoji-drop-down-selector-emoji-wrapper">
-                        {generateFoodAndDrink().map((emoji:any) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
+                        {generateFoodAndDrink().map((emoji: any) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
                     </div>
                 </div>
                 <div className="emoji-drop-down-selection-section" id="Activity">
                     <h2 className="emoji-drop-down-selector-section-title">Activity</h2>
                     <div className="emoji-drop-down-selector-emoji-wrapper">
-                        {generateActivities().map((emoji:string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
+                        {generateActivities().map((emoji: string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
                     </div>
                 </div>
                 <div className="emoji-drop-down-selection-section" id="Travel & places">
                     <h2 className="emoji-drop-down-selector-section-title">Travel & places</h2>
                     <div className="emoji-drop-down-selector-emoji-wrapper">
-                        {generateTravelAndPlaces().map((emoji:string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
+                        {generateTravelAndPlaces().map((emoji: string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
                     </div>
                 </div>
                 <div className="emoji-drop-down-selection-section" id="Objects">
                     <h2 className="emoji-drop-down-selector-section-title">Objects</h2>
                     <div className="emoji-drop-down-selector-emoji-wrapper">
-                        {generateObjects().map((emoji:string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
+                        {generateObjects().map((emoji: string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
                     </div>
                 </div>
                 <div className="emoji-drop-down-selection-section" id="Symbols">
                     <h2 className="emoji-drop-down-selector-section-title">Symbols</h2>
                     <div className="emoji-drop-down-selector-emoji-wrapper">
-                        {generateSymbols().map((emoji:string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
+                        {generateSymbols().map((emoji: string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
                     </div>
                 </div>
                 <div className="emoji-drop-down-selection-section" id="Flags">
                     <h2 className="emoji-drop-down-selector-section-title">Flags</h2>
                     <div className="emoji-drop-down-selector-emoji-wrapper">
-                        {generateFlags().map((emoji:string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
+                        {generateFlags().map((emoji: string) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
                     </div>
                 </div>
             </div>
