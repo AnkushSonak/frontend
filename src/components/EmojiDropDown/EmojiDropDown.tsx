@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { generateActivities, generateAnimalAndNature, generateFlags, generateFoodAndDrink, generateObjects, generateSmileysAndPeople, generateSymbols, generateTopRow, generateTravelAndPlaces } from "../../utils/EmojiUtils";
+import { determineSkinToneColor, generateActivities, generateAnimalAndNature, generateFlags, generateFoodAndDrink, generateObjects, generateSmileysAndPeople, generateSymbols, generateTopRow, generateTravelAndPlaces } from "../../utils/EmojiUtils";
 import SearchIcon from '@mui/icons-material/Search';
+import DoneIcon from '@mui/icons-material/Done';
 import './EmojiDropDown.css';
 
 export const EmojiDropDown: React.FC = () => {
 
     const [activeCategory, setActiveCategory] = useState<number>(1);
+    const [currentEmoji, setCurrentEmoji] = useState<string>("😊");
+    const [skinToneSelectorActive, setSkinToneSelectorActive] = useState<boolean>(false);
+    const [currentSkinTone, setCurrentSkinTone] = useState<string>("none"); 
+
     const navigateToSection = (e: React.MouseEvent<HTMLDivElement>) => {
         switch (e.currentTarget.id) {
             case "0":
@@ -55,6 +60,22 @@ export const EmojiDropDown: React.FC = () => {
         }
     }
 
+    const getCurrentEmoji = (e:React.MouseEvent<HTMLDivElement>) => {
+        const element:any = e.target;
+        if(element.id){
+            setCurrentEmoji(element.innerText);
+        }
+    }
+
+    const resetCurrentEmoji = (e:React.MouseEvent<HTMLDivElement>) => {
+        setCurrentEmoji("😊");
+    }
+
+    const selectSkinTone = (e:React.MouseEvent<HTMLDivElement>) => {
+        setCurrentSkinTone(e.currentTarget.id);
+        setSkinToneSelectorActive(false);
+    }
+
     return (
         <div className="emoji-drop-down">
             <div className="emoji-drop-down-top">
@@ -87,12 +108,12 @@ export const EmojiDropDown: React.FC = () => {
                     })}
                 </div>
             </div>
-            <div className="emoji-drop-down-selector">
+            <div className="emoji-drop-down-selector" onMouseOver={getCurrentEmoji} onMouseLeave={resetCurrentEmoji}>
                 {/** TODO Recent Section */}
                 <div className="emoji-drop-down-selection-section" id="Smileys & people">
                     <h2 className="emoji-drop-down-selector-section-title">Smileys & people</h2>
                     <div className="emoji-drop-down-selector-emoji-wrapper">
-                        {generateSmileysAndPeople().map((emoji) => <div className="emoji-drop-down-emoji">{emoji}</div>)}
+                        {generateSmileysAndPeople().map((emoji) => <div aria-label={emoji.name} id={emoji.name} className="emoji-drop-down-emoji">{emoji.emoji}</div>)}
                     </div>
                 </div>
                 <div className="emoji-drop-down-selection-section" id="Animals & nature">
@@ -139,7 +160,30 @@ export const EmojiDropDown: React.FC = () => {
                 </div>
             </div>
             <div className="emoji-drop-down-bottom">
-
+                <div className="emoji-drop-down-current-emoji">{currentEmoji}</div>
+                    <div className="emoji-drop-down-skin-tone-selector">
+                        {
+                            skinToneSelectorActive ?
+                                <div className="emoji-drop-down-skin-tone-selector-wrapper">
+                                    <div className="emoji-drop-down-skin-tone-option" id="none" onClick={selectSkinTone}></div>
+                                    <div className="emoji-drop-down-skin-tone-option" id="light" onClick={selectSkinTone}></div>
+                                    <div className="emoji-drop-down-skin-tone-option" id="light-medium" onClick={selectSkinTone}></div>
+                                    <div className="emoji-drop-down-skin-tone-option" id="medium" onClick={selectSkinTone}></div>
+                                    <div className="emoji-drop-down-skin-tone-option" id="medium-dark" onClick={selectSkinTone}></div>
+                                    <div className="emoji-drop-down-skin-tone-option" id="dark" onClick={selectSkinTone}></div>
+                                </div> 
+                                :
+                                <div className="emoji-drop-down-skin-tone-selector-wrapper">
+                                    <div className="emoji-drop-down-skin-tone-selected" style={{
+                                        backgroundColor: `${determineSkinToneColor(currentSkinTone)}`
+                                    }} onClick={() => setSkinToneSelectorActive(true)}>
+                                        <DoneIcon sx={{
+                                            fontSize: "12px"
+                                        }} />
+                                    </div>
+                                </div>
+                        }
+                    </div>
             </div>
         </div>
     )

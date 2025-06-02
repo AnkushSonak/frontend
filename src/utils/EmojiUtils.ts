@@ -5,14 +5,27 @@ const EMOJIS = (data as any).emojis;
 const EMOJIS_IMG = (data as any).emojis;
 
 let supported = window.navigator.platform.toUpperCase().indexOf("MAC") >= 0 ? 'apple' : 'windows';
+
+interface EmojiData {
+    emoji: string,
+    name: string
+}
+
 console.log(JSON.stringify(EMOJIS + "++++" + EMOJIS_IMG));
-export const generateSmileysAndPeople = (): string[] => {
+export const generateSmileysAndPeople = (): EmojiData[] => {
 
     const smileysAndPeople = EMOJIS.filter((emoji: any) => {
         if (emoji.category === "Smileys & Emotion" || emoji.category === "People & Body") {
             return emoji
         }
-    }).map((emoji: any) => emoji.emoji);
+    }).map((emoji: any) => {
+        return {
+            emoji: emoji.emoji,
+            name: emoji.name
+        }
+    }
+
+    );
 
     return smileysAndPeople;
 }
@@ -159,4 +172,23 @@ export const generateTopRow = () => {
     }
     // console.log("imgs : " + data);
     return data;
+}
+
+export const determineSkinToneColor = (currentSkinTone: string):string => {
+    switch(currentSkinTone){
+        case "light":
+            return "rgb(247, 222, 206)";
+        case "light-medium":
+            return "rgb(243, 210, 162)";
+        case "medium":
+            return "rgb(213, 171, 136)";
+        case "medium-dark":
+            return "rgb(175, 126, 87)";
+        case "dark":
+            return "rgb(124, 83, 62)"
+        default:
+            return "rgb(255, 220, 93)";
+    }
+    
+
 }
