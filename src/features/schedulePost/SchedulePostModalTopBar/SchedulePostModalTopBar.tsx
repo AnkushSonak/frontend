@@ -8,11 +8,11 @@ import { updateDisplaySchedule } from '../../../redux/Slices/ModalSlice';
 export const SchedulePostModalTopBar: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
 
-    function closeModal(){
+    function closeModal() {
         dispatch(updateDisplaySchedule());
-    }  
+    }
 
-    return(
+    return (
         <div className="schedule-post-modal-top-bar">
             <div className="schedule-post-modal-top-bar-left">
                 <div className="schedule-post-modal-top-bar-close-bg" onClick={closeModal}>
@@ -23,7 +23,7 @@ export const SchedulePostModalTopBar: React.FC = () => {
             <div className="schedule-post-modal-top-bar-right">
                 <button className="schedule-post-modal-top-bar-confirm" onClick={closeModal}>Confirm</button>
             </div>
-           
+
         </div>
     )
 }

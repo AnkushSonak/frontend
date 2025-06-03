@@ -9,7 +9,7 @@ export const EmojiDropDown: React.FC = () => {
     const [activeCategory, setActiveCategory] = useState<number>(1);
     const [currentEmoji, setCurrentEmoji] = useState<string>("😊");
     const [skinToneSelectorActive, setSkinToneSelectorActive] = useState<boolean>(false);
-    const [currentSkinTone, setCurrentSkinTone] = useState<string>("none"); 
+    const [currentSkinTone, setCurrentSkinTone] = useState<string>("none");
 
     const navigateToSection = (e: React.MouseEvent<HTMLDivElement>) => {
         switch (e.currentTarget.id) {
@@ -60,18 +60,18 @@ export const EmojiDropDown: React.FC = () => {
         }
     }
 
-    const getCurrentEmoji = (e:React.MouseEvent<HTMLDivElement>) => {
-        const element:any = e.target;
-        if(element.id){
+    const getCurrentEmoji = (e: React.MouseEvent<HTMLDivElement>) => {
+        const element: any = e.target;
+        if (element.id) {
             setCurrentEmoji(element.innerText);
         }
     }
 
-    const resetCurrentEmoji = (e:React.MouseEvent<HTMLDivElement>) => {
+    const resetCurrentEmoji = (e: React.MouseEvent<HTMLDivElement>) => {
         setCurrentEmoji("😊");
     }
 
-    const selectSkinTone = (e:React.MouseEvent<HTMLDivElement>) => {
+    const selectSkinTone = (e: React.MouseEvent<HTMLDivElement>) => {
         setCurrentSkinTone(e.currentTarget.id);
         setSkinToneSelectorActive(false);
     }
@@ -161,29 +161,29 @@ export const EmojiDropDown: React.FC = () => {
             </div>
             <div className="emoji-drop-down-bottom">
                 <div className="emoji-drop-down-current-emoji">{currentEmoji}</div>
-                    <div className="emoji-drop-down-skin-tone-selector">
-                        {
-                            skinToneSelectorActive ?
-                                <div className="emoji-drop-down-skin-tone-selector-wrapper">
-                                    <div className="emoji-drop-down-skin-tone-option" id="none" onClick={selectSkinTone}></div>
-                                    <div className="emoji-drop-down-skin-tone-option" id="light" onClick={selectSkinTone}></div>
-                                    <div className="emoji-drop-down-skin-tone-option" id="light-medium" onClick={selectSkinTone}></div>
-                                    <div className="emoji-drop-down-skin-tone-option" id="medium" onClick={selectSkinTone}></div>
-                                    <div className="emoji-drop-down-skin-tone-option" id="medium-dark" onClick={selectSkinTone}></div>
-                                    <div className="emoji-drop-down-skin-tone-option" id="dark" onClick={selectSkinTone}></div>
-                                </div> 
-                                :
-                                <div className="emoji-drop-down-skin-tone-selector-wrapper">
-                                    <div className="emoji-drop-down-skin-tone-selected" style={{
-                                        backgroundColor: `${determineSkinToneColor(currentSkinTone)}`
-                                    }} onClick={() => setSkinToneSelectorActive(true)}>
-                                        <DoneIcon sx={{
-                                            fontSize: "12px"
-                                        }} />
-                                    </div>
+                <div className="emoji-drop-down-skin-tone-selector">
+                    {
+                        skinToneSelectorActive ?
+                            <div className="emoji-drop-down-skin-tone-selector-wrapper">
+                                <div className="emoji-drop-down-skin-tone-option" id="none" onClick={selectSkinTone}></div>
+                                <div className="emoji-drop-down-skin-tone-option" id="light" onClick={selectSkinTone}></div>
+                                <div className="emoji-drop-down-skin-tone-option" id="light-medium" onClick={selectSkinTone}></div>
+                                <div className="emoji-drop-down-skin-tone-option" id="medium" onClick={selectSkinTone}></div>
+                                <div className="emoji-drop-down-skin-tone-option" id="medium-dark" onClick={selectSkinTone}></div>
+                                <div className="emoji-drop-down-skin-tone-option" id="dark" onClick={selectSkinTone}></div>
+                            </div>
+                            :
+                            <div className="emoji-drop-down-skin-tone-selector-wrapper">
+                                <div className="emoji-drop-down-skin-tone-selected" style={{
+                                    backgroundColor: `${determineSkinToneColor(currentSkinTone)}`
+                                }} onClick={() => setSkinToneSelectorActive(true)}>
+                                    <DoneIcon sx={{
+                                        fontSize: "12px"
+                                    }} />
                                 </div>
-                        }
-                    </div>
+                            </div>
+                    }
+                </div>
             </div>
         </div>
     )
