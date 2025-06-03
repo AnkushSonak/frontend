@@ -128,7 +128,7 @@
     background-color: rgba(0, 0, 0, .1);
 }
 
-.emoji-drop-down-bottom{
+.emoji-drop-down-bottom {
     width: 100%;
     height: 61px;
     display: flex;
@@ -138,18 +138,18 @@
     padding-right: 16px;
 }
 
-.emoji-drop-down-current-emoji{
+.emoji-drop-down-current-emoji {
     height: fit-content;
     width: fit-content;
     font-size: 26px;
 }
 
-.emoji-drop-down-skin-tone-selector{
+.emoji-drop-down-skin-tone-selector {
     width: fit-content;
     height: fit-content;
 }
 
-.emoji-drop-down-skin-tone-selector-wrapper{
+.emoji-drop-down-skin-tone-selector-wrapper {
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -158,7 +158,7 @@
     column-gap: 2px;
 }
 
-.emoji-drop-down-skin-tone-selected{
+.emoji-drop-down-skin-tone-selected {
     width: 20px;
     height: 20px;
     border-radius: 100%;
@@ -168,54 +168,56 @@
     align-items: center;
 }
 
-.emoji-drop-down-skin-tone-option{
+.emoji-drop-down-skin-tone-option {
     width: 20px;
     height: 20px;
     border-radius: 100%;
 }
 
-#light{
+#light {
     background-color: rgb(247, 222, 206);
 }
 
-#light:hover{
+#light:hover {
     border: 1px solid rgba(247, 222, 206, .3);
 }
 
-#light-medium{
+#light-medium {
     background-color: rgb(243, 210, 162);
 }
 
-#light-medium:hover{
+#light-medium:hover {
     border: 1px solid rgb(243, 210, 162, .3);
 }
 
-#medium{
+#medium {
     background-color: rgb(213, 171, 136);
 }
 
-#medium:hover{
+#medium:hover {
     border: 1px solid rgb(213, 171, 136, .3);
 }
 
-#medium-dark{
+#medium-dark {
     background-color: rgb(175, 126, 87);
 }
 
-#medium-dark:hover{
+#medium-dark:hover {
     border: 1px solid rgb(175, 126, 87, .3);
 }
 
-#dark{
+#dark {
     background-color: rgb(124, 83, 62);
 }
-#dark:hover{
+
+#dark:hover {
     border: 1px solid rgb(124, 83, 62, .3);
 }
 
-#none{
+#none {
     background-color: rgb(255, 220, 93);
 }
-#none:hover{
+
+#none:hover {
     border: 1px solid rgb(255, 220, 93, .3);
 }
