@@ -1,9 +1,9 @@
-.register-modal{
+.register-modal {
     height: 100%;
     width: 100%;
 }
 
-.register-modal-content{
+.register-modal-content {
     width: 100%;
     height: fit-content;
     display: flex;
