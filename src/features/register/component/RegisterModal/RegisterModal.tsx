@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Modal } from '../../../../components/Modal/Modal'
-import { RegisterationStepCounter } from '../RegisterStepCounter/RegistrationStepCounter' 
+import { RegisterationStepCounter } from '../RegisterStepCounter/RegistrationStepCounter'
 import { determineModalContent } from '../../utils/RegisterModalUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../../redux/Store'
@@ -8,34 +8,34 @@ import { cleanRegisterState, decrementStep } from '../../../../redux/Slices/Regi
 import { RegisterNextButton } from '../RegisterNextButton/RegisterNextButton'
 import './RegisterModal.css'
 
-interface RegisterModalProps{
-  toggleModal: () =>void;
+interface RegisterModalProps {
+  toggleModal: () => void;
 }
 
-export const RegisterModal:React.FC<RegisterModalProps> = ({toggleModal}) => {
+export const RegisterModal: React.FC<RegisterModalProps> = ({ toggleModal }) => {
 
   const state = useSelector((state: RootState) => state.register);
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
-    const stepButtonClicked = () => {
-      if(state.step === 1){
-        toggleModal();
-        return;
-      }
-      dispatch(decrementStep());
-}
+  const stepButtonClicked = () => {
+    if (state.step === 1) {
+      toggleModal();
+      return;
+    }
+    dispatch(decrementStep());
+  }
 
-useEffect(()=> {
-  return (() => {
-    dispatch(cleanRegisterState());
-  })
-}, [])
+  useEffect(() => {
+    return (() => {
+      dispatch(cleanRegisterState());
+    })
+  }, [])
 
   return (
-      <Modal topContent={<RegisterationStepCounter step ={state.step} changeStep={stepButtonClicked}/>}
-             content={determineModalContent(state.step)} 
-             bottomContent={<RegisterNextButton step={state.step} />} 
-      />
+    <Modal topContent={<RegisterationStepCounter step={state.step} changeStep={stepButtonClicked} />}
+      content={determineModalContent(state.step)}
+      bottomContent={<RegisterNextButton step={state.step} />}
+    />
   )
 }
 
