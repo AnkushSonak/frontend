@@ -1,31 +1,65 @@
 import data from '../assets/list.with.modifiers.json';
 import dataWithImage from '../assets/list.with.images.json';
 
-const EMOJIS = (data as any).emojis;
+const EMOJIS:Emoji[] = (data as any).emojis;
 const EMOJIS_IMG = (data as any).emojis;
 
 let supported = window.navigator.platform.toUpperCase().indexOf("MAC") >= 0 ? 'apple' : 'windows';
 
 interface EmojiData {
+    name: string,
+    category: string,
     emoji: string,
-    name: string
+    image: string,
 }
 
-console.log(JSON.stringify(EMOJIS + "++++" + EMOJIS_IMG));
-export const generateSmileysAndPeople = (): EmojiData[] => {
+interface Emoji {
+    name: string,
+    category: string,
+    emoji: string,
+    images:string[],
+    modifiers: string[] 
+}
 
-    const smileysAndPeople = EMOJIS.filter((emoji: any) => {
-        if (emoji.category === "Smileys & Emotion" || emoji.category === "People & Body") {
-            return emoji
-        }
-    }).map((emoji: any) => {
-        return {
-            emoji: emoji.emoji,
-            name: emoji.name
-        }
-    }
+export const generateSmileysAndPeople = (modifier: string): EmojiData[] => {
 
-    );
+    const smileysAndPeople = EMOJIS.filter((emoji:Emoji) => emoji.category === 'Smileys & people')
+    .map((emoji:Emoji) => {
+        let indexOfModifier = convertModifierToIndex(modifier);
+
+        let emojiData: EmojiData = {
+            name: emoji.name,
+            category: emoji.category,
+            image: emoji.images[indexOfModifier],
+            emoji: ""
+        }
+       
+        if(indexOfModifier > 0 && emoji.modifiers.length > 1){
+            emojiData = {
+                ...emojiData,
+                emoji: emoji.modifiers[indexOfModifier]
+            }
+        } else {
+            emojiData = {
+                ...emojiData,
+                emoji: emoji.emoji
+            }
+        }
+        return emojiData;
+    })
+
+    // const smileysAndPeople = EMOJIS.filter((emoji: any) => {
+    //     if (emoji.category === "Smileys & Emotion" || emoji.category === "People & Body") {
+    //         return emoji
+    //     }
+    // }).map((emoji: any) => {
+    //     return {
+    //         emoji: emoji.emoji,
+    //         name: emoji.name
+    //     }
+    // }
+
+    // );
 
     return smileysAndPeople;
 }
@@ -192,3 +226,20 @@ export const determineSkinToneColor = (currentSkinTone: string):string => {
     
 
 }
+
+export const convertModifierToIndex = (modifier: string): number => {
+    switch (modifier) {
+        case "light":
+            return 1;
+        case "light-medium":
+            return 2;
+        case "medium":
+            return 3;
+        case "medium-dark":
+            return 4;
+        case "dark":
+            return 5;
+        default:
+            return 0;
+    }
+} 
