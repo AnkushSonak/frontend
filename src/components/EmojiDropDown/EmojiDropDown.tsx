@@ -9,7 +9,7 @@ export const EmojiDropDown: React.FC = () => {
     const [activeCategory, setActiveCategory] = useState<number>(1);
     const [currentEmoji, setCurrentEmoji] = useState<string>("😊");
     const [skinToneSelectorActive, setSkinToneSelectorActive] = useState<boolean>(false);
-    const [currentSkinTone, setCurrentSkinTone] = useState<string>("none");
+    const [currentSkinTone, setCurrentSkinTone] = useState<string>("");
 
     const navigateToSection = (e: React.MouseEvent<HTMLDivElement>) => {
         switch (e.currentTarget.id) {
