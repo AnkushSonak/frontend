@@ -12,15 +12,15 @@ import ForgotPasswordModal from '../features/forgotPassword';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
 
-export const Landing:React.FC = () => {
+export const Landing: React.FC = () => {
 
-  const dispatch:AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const [register, setRegister] = useState<boolean>(false);
   const [login, setLogin] = useState<boolean>(false);
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
 
-  const[jwt, setJwt, removeJwt] = useLocalStorage("token", "");
+  const [jwt, setJwt, removeJwt] = useLocalStorage("token", "");
   const navigate = useNavigate();
 
   const toggleRegister = () => {
@@ -28,7 +28,7 @@ export const Landing:React.FC = () => {
   }
 
   const toggleLogin = () => {
-    setLogin(!login);  
+    setLogin(!login);
     dispatch(resetUsername());
   }
 
@@ -36,19 +36,19 @@ export const Landing:React.FC = () => {
     setLogin(false);
     setForgotPassword(!forgotPassword);
   }
- 
-useEffect(()=>{
-  if(jwt !== '') navigate("/home");
-}, [jwt])
+
+  useEffect(() => {
+    if (jwt !== '') navigate("/home");
+  }, [jwt])
 
   return (
     <div className="home-container bg-color">
-       {register ?  <RegisterModal toggleModal = {toggleRegister} /> : <></>}
-       {login ? <LoginModal toggleModal={toggleLogin} toggleRegister={toggleRegister} toggleForgot={toggleForgotPassword} /> : <></>}
-       {forgotPassword ? <ForgotPasswordModal toggleModal={toggleForgotPassword} /> : <></>} 
-       <div className="landing-layout">
+      {register ? <RegisterModal toggleModal={toggleRegister} /> : <></>}
+      {login ? <LoginModal toggleModal={toggleLogin} toggleRegister={toggleRegister} toggleForgot={toggleForgotPassword} /> : <></>}
+      {forgotPassword ? <ForgotPasswordModal toggleModal={toggleForgotPassword} /> : <></>}
+      <div className="landing-layout">
         <div className="landing-top-left bg-blue">
-            <img src={whiteLogo} className='landing-top-left-logo' />
+          <img src={whiteLogo} className='landing-top-left-logo' />
         </div>
         <div className="landing-top-right">
           <RightSideBar toggleLogin={toggleLogin} toggleRegister={toggleRegister} />
@@ -56,7 +56,7 @@ useEffect(()=>{
         <div className="landing-bottom">
           <LandingFooter />
         </div>
-       </div>
+      </div>
     </div>
   )
 }

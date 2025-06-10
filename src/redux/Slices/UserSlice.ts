@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../utils/GlobalInterfaces";
 import axios from 'axios'
 
-interface USerSliceState{
+interface USerSliceState {
     loggedIn: User | undefined;
     username: string;
     token: string;
@@ -10,7 +10,7 @@ interface USerSliceState{
     error: boolean;
 }
 
-interface LoginBody{
+interface LoginBody {
     username: string;
     password: string;
 }
@@ -31,19 +31,19 @@ const initialState: USerSliceState = {
 
 export const loginUser = createAsyncThunk(
     'user/login',
-    async(body: LoginBody, thunkAPI) => {
+    async (body: LoginBody, thunkAPI) => {
         try {
             const req = await axios.post('http://localhost:8000/auth/login', body);
             return req.data;
         } catch (e) {
             return thunkAPI.rejectWithValue(e);
         }
-    }    
+    }
 )
 
 export const VerifyUsername = createAsyncThunk(
     'user/username',
-    async(body: VerifyUserBody, thunkAPI) => {
+    async (body: VerifyUserBody, thunkAPI) => {
         try {
             const req = await axios.post('http://localhost:8000/auth/find', body);
             return req.data;
@@ -74,7 +74,7 @@ export const UserSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setFromRegister(state, action:PayloadAction<boolean>){
+        setFromRegister(state, action: PayloadAction<boolean>) {
             state = {
                 ...state,
                 fromRegister: action.payload
@@ -83,15 +83,15 @@ export const UserSlice = createSlice({
             return state;
         },
 
-        resetUsername(state){
-            state= {
+        resetUsername(state) {
+            state = {
                 ...state,
                 username: ''
             };
             return state;
         },
 
-        setToken(state, action:PayloadAction<string>){
+        setToken(state, action: PayloadAction<string>) {
             state = {
                 ...state,
                 error: true
@@ -121,8 +121,8 @@ export const UserSlice = createSlice({
             }
             return state;
         });
-        
-        builder.addCase(VerifyUsername.fulfilled,  (state, action) => {
+
+        builder.addCase(VerifyUsername.fulfilled, (state, action) => {
             state = {
                 ...state,
                 username: action.payload
@@ -131,14 +131,14 @@ export const UserSlice = createSlice({
         });
 
         builder.addCase(loginUser.pending, (state, action) => {
-            state ={
+            state = {
                 ...state,
                 error: false
             }
             return state;
         });
 
-        builder.addCase(VerifyUsername.pending,  (state, action) => {
+        builder.addCase(VerifyUsername.pending, (state, action) => {
             state = {
                 ...state,
                 error: false
@@ -154,7 +154,7 @@ export const UserSlice = createSlice({
             return state;
         });
 
-        builder.addCase(VerifyUsername.rejected,  (state, action) => {
+        builder.addCase(VerifyUsername.rejected, (state, action) => {
             state = {
                 ...state,
                 error: true
@@ -162,7 +162,7 @@ export const UserSlice = createSlice({
             return state;
         });
 
-        builder.addCase(getUserByToken.fulfilled,  (state, action) => {
+        builder.addCase(getUserByToken.fulfilled, (state, action) => {
             state = {
                 ...state,
                 loggedIn: action.payload,
@@ -171,7 +171,7 @@ export const UserSlice = createSlice({
             return state;
         });
 
-        builder.addCase(getUserByToken.pending,  (state, action) => {
+        builder.addCase(getUserByToken.pending, (state, action) => {
             state = {
                 ...state,
                 error: false
@@ -179,7 +179,7 @@ export const UserSlice = createSlice({
             return state;
         });
 
-        builder.addCase(getUserByToken.rejected,  (state, action) => {
+        builder.addCase(getUserByToken.rejected, (state, action) => {
             state = {
                 ...state,
                 error: true
@@ -189,6 +189,6 @@ export const UserSlice = createSlice({
     }
 });
 
-export const {setFromRegister, resetUsername, setToken} = UserSlice.actions;
+export const { setFromRegister, resetUsername, setToken } = UserSlice.actions;
 
 export default UserSlice.reducer;
